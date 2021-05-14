@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "config-ms-neighborhood",
+      "type": "com.neighborhood.msneighborhood.config.ApplicationPropertiesConfig",
+      "sourceType": "com.neighborhood.msneighborhood.config.ApplicationPropertiesConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "config-ms-neighborhood.page-size-limit",
+      "type": "java.lang.Integer",
+      "sourceType": "com.neighborhood.msneighborhood.config.ApplicationPropertiesConfig",
+      "defaultValue": 0
+    }
+  ],
+  "hints": []
+}

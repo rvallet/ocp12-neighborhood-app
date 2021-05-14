@@ -18,7 +18,7 @@
 	<!-- =============================================================== -->
 	<groupId>com.neighborhood</groupId>
 	<artifactId>cloud-config</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>cloud-config</name>
 	<description>Serveur de configuration da l'applicatif Neighborhood</description>
 

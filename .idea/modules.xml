@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cloud-config/cloud-config.iml" filepath="$PROJECT_DIR$/cloud-config/cloud-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-neighborhood/ms-neighborhood.iml" filepath="$PROJECT_DIR$/ms-neighborhood/ms-neighborhood.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ocp12-neighborhood-app.iml" filepath="$PROJECT_DIR$/.idea/ocp12-neighborhood-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/website/website.iml" filepath="$PROJECT_DIR$/website/website.iml" />
+    </modules>
+  </component>
+</project>
