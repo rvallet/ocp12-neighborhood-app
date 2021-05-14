@@ -18,7 +18,7 @@
     <!-- =============================================================== -->
     <groupId>com.neighborhood</groupId>
     <artifactId>ms-neighborhood</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>ms-neighborhood</name>
     <description>Micro-service for website Neighborhood</description>
 
