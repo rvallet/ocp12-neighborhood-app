@@ -10,8 +10,6 @@ public class UserBean {
 
     private String firstName;
 
-    private String address;
-
     private String email;
 
     private String password;
@@ -21,6 +19,8 @@ public class UserBean {
     private String resetToken;
 
     private Date creationDate;
+
+    private AdresseBean adresse;
 
     public Long getId() {
         return id;
@@ -46,12 +46,12 @@ public class UserBean {
         this.firstName = firstName;
     }
 
-    public String getAddress() {
-        return address;
+    public AdresseBean getAdresse() {
+        return adresse;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAdresse(AdresseBean adresse) {
+        this.adresse = adresse;
     }
 
     public String getEmail() {
@@ -100,12 +100,13 @@ public class UserBean {
                 "id=" + id +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 ", resetToken='" + resetToken + '\'' +
                 ", creationDate=" + creationDate +
+                ", adresse=" + adresse +
                 '}';
     }
+
 }
