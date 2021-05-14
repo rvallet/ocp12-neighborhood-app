@@ -19,8 +19,6 @@ public class User implements Serializable {
 
     private String firstName;
 
-    private String address;
-
     private String email;
 
     private String password;
@@ -30,6 +28,9 @@ public class User implements Serializable {
     private String resetToken;
 
     private Date creationDate;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Adresse address;
 
     public User() {
         super();
@@ -70,11 +71,11 @@ public class User implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getAddress() {
+    public Adresse getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Adresse address) {
         this.address = address;
     }
 
@@ -123,26 +124,26 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(address, user.address) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(resetToken, user.resetToken) && Objects.equals(creationDate, user.creationDate);
+        return Objects.equals(id, user.id) && Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(resetToken, user.resetToken) && Objects.equals(creationDate, user.creationDate) && Objects.equals(address, user.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastName, firstName, address, email, password, role, resetToken, creationDate);
+        return Objects.hash(id, lastName, firstName, email, password, role, resetToken, creationDate, address);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "lastName='" + lastName + '\'' +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 ", resetToken='" + resetToken + '\'' +
                 ", creationDate=" + creationDate +
+                ", address=" + address +
                 '}';
     }
-
 }

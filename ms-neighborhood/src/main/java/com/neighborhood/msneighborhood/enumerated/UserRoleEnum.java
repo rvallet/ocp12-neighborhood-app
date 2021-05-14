@@ -2,9 +2,9 @@ package com.neighborhood.msneighborhood.enumerated;
 
 public enum UserRoleEnum {
 
-    USER ("user"),
+    USER("user"),
     MEMBER("member"),
-    ADMIN ("admin");
+    ADMIN("admin");
 
     private String userRole;
 
