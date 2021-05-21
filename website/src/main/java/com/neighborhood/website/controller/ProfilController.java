@@ -30,6 +30,12 @@ public class ProfilController {
         List<LoanBean> loanList = microServiceNeighborhoodProxy.getLoansByUserId(u.getId().toString());
         model.addAttribute("loanList" , loanList);
 
+        LOGGER.info(
+                "Récupération d'une liste de {} emprunts pour l'utilisateur id {}",
+                loanList.size(),
+                u.getId()
+        );
+
         return "user/profil";
     }
 }

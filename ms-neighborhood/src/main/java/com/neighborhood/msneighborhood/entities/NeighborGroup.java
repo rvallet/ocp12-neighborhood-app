@@ -1,7 +1,10 @@
 package com.neighborhood.msneighborhood.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -15,16 +18,21 @@ public class NeighborGroup implements Serializable {
 
     private String name;
 
-    @OneToOne
-    private User user;
+    @OneToMany(mappedBy = "neighborGroup", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Collection<User> neighbors;
 
     public NeighborGroup() {
         super();
     }
 
-    public NeighborGroup(String name, User user) {
+    public NeighborGroup(String name) {
         this.name = name;
-        this.user = user;
+    }
+
+    public NeighborGroup(String name, Collection<User> neighbors) {
+        this.name = name;
+        this.neighbors = neighbors;
     }
 
     public Long getId() {
@@ -43,12 +51,12 @@ public class NeighborGroup implements Serializable {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    public Collection<User> getNeighbors() {
+        return neighbors;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setNeighbors(Collection<User> neighbors) {
+        this.neighbors = neighbors;
     }
 
     @Override
@@ -56,20 +64,13 @@ public class NeighborGroup implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NeighborGroup that = (NeighborGroup) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(user, that.user);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(neighbors, that.neighbors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, user);
+        return Objects.hash(id, name, neighbors);
     }
 
-    @Override
-    public String toString() {
-        return "NeighborGroup{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", user=" + user +
-                '}';
-    }
+
 }

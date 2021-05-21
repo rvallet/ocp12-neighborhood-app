@@ -1,8 +1,10 @@
 package com.neighborhood.msneighborhood;
 
 import com.neighborhood.msneighborhood.config.ApplicationPropertiesConfig;
+import com.neighborhood.msneighborhood.entities.NeighborGroup;
 import com.neighborhood.msneighborhood.entities.User;
 import com.neighborhood.msneighborhood.security.WebSecurityConfig;
+import com.neighborhood.msneighborhood.service.NeighborGroupService;
 import com.neighborhood.msneighborhood.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +41,9 @@ public class MsNeighborhoodApplication implements CommandLineRunner {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NeighborGroupService neighborGroupService;
+
     /**
      * Callback used to run the bean.
      *
@@ -52,8 +57,9 @@ public class MsNeighborhoodApplication implements CommandLineRunner {
         LOGGER.info("Recherche de l'existance des utilisateurs en BDD");
 
         boolean isBddInit = false;
+        List<User> allUsers = userService.findAll();
 
-        if (CollectionUtils.isEmpty(userService.findAll())) {
+        if (CollectionUtils.isEmpty(allUsers)) {
             LOGGER.info("Création d'un jeu de données utilisateur de test (table 'user')");
             isBddInit=true;
 
@@ -102,13 +108,30 @@ public class MsNeighborhoodApplication implements CommandLineRunner {
                     )
             );
 
+            initNeighbors(userList);
+
             userService.saveAll(userList);
             LOGGER.info("Ajout de {} Utilisateurs", userList.size());
+        } else {
+            LOGGER.info("Il existe {} utilisateurs en BDD", allUsers.size());
         }
-
 
         if (isBddInit) {
 
         }
+
     }
+
+    private void initNeighbors(List<User> users){
+        LOGGER.info("Création d'un jeu de données groupe de voisins (table 'neighborgroup')");
+        NeighborGroup neighborGroup = new NeighborGroup("GroupTest", users);
+        neighborGroupService.save(neighborGroup);
+        users.forEach(u -> u.setNeighborGroup(neighborGroup));
+    }
+
+    private void initUserAdresse(List<User> users){
+
+    }
+
+
 }

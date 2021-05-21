@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Collection;
 import java.util.List;
 
 @FeignClient(name = "ms-neighborhood")
@@ -19,6 +20,9 @@ public interface MicroServiceNeighborhoodProxy {
 
     @GetMapping(value= "/users")
     List<UserBean> getUsers();
+
+    @GetMapping(value= "/neighbors/{groupId}")
+    List<UserBean> getNeighborsByGroupId(@PathVariable Long groupId);
 
     @GetMapping(value= "/users/page/{pageNumber}/{pageSize}")
     Page<UserBean> getPaginatedUsers(@PathVariable int pageNumber, @PathVariable int pageSize);

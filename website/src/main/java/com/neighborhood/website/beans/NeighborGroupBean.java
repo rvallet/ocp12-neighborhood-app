@@ -1,12 +1,14 @@
 package com.neighborhood.website.beans;
 
+import java.util.List;
+
 public class NeighborGroupBean {
 
     private Long id;
 
     private String name;
 
-    private UserBean user;
+    private List<UserBean> neighbors;
 
     public Long getId() {
         return id;
@@ -24,11 +26,11 @@ public class NeighborGroupBean {
         this.name = name;
     }
 
-    public UserBean getUser() {
-        return user;
+    public List<UserBean> getNeighbors() {
+        return neighbors;
     }
 
-    public void setUser(UserBean user) {
-        this.user = user;
+    public void setNeighbors(List<UserBean> neighbors) {
+        this.neighbors = neighbors;
     }
 }

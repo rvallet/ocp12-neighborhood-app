@@ -34,6 +34,15 @@ public class UserController {
         return userList;
     }
 
+    @GetMapping(value= ApiRegistration.REST_NEIGHBORS +"/{groupId}")
+    public List<User> getUsersByNeighborGroupId(@PathVariable Long groupId) throws NoSuchResultException {
+        List<User> userList = userService.findUsersByNeighborGroupId(groupId);
+        LOGGER.info("Envoi d'une liste de {} utilisateurs", userList.size());
+        if (userList.isEmpty()) throw new NoSuchResultException("Aucun Utilisateur");
+        LOGGER.debug("PageSizeLimit = {}", applicationPropertiesConfig.getPageSizeLimit());
+        return userList;
+    }
+
     @GetMapping(value= ApiRegistration.REST_USERS + ApiRegistration.REST_PAGINATION + "/{pageNumber}")
     public Page<User> getPaginatedUsers(@PathVariable int pageNumber) throws NoSuchResultException {
         return userService.findPaginatedUsers(pageNumber-1, applicationPropertiesConfig.getPageSizeLimit());

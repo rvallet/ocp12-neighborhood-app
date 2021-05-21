@@ -1,5 +1,7 @@
 package com.neighborhood.msneighborhood.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -33,7 +35,9 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Adresse address;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_neighborgroup")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private NeighborGroup neighborGroup;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -52,8 +56,6 @@ public class User implements Serializable {
         this.password = password;
         this.role = role;
         this.creationDate = Calendar.getInstance().getTime();
-        this.address = new Adresse();
-        this.neighborGroup = new NeighborGroup();
     }
 
     public Long getId() {
@@ -136,31 +138,26 @@ public class User implements Serializable {
         this.neighborGroup = neighborGroup;
     }
 
+    public Collection<Loan> getLoan() {
+        return loan;
+    }
+
+    public void setLoan(Collection<Loan> loan) {
+        this.loan = loan;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(resetToken, user.resetToken) && Objects.equals(creationDate, user.creationDate) && Objects.equals(address, user.address);
+        return Objects.equals(id, user.id) && Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(resetToken, user.resetToken) && Objects.equals(creationDate, user.creationDate) && Objects.equals(address, user.address) && Objects.equals(neighborGroup, user.neighborGroup) && Objects.equals(loan, user.loan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastName, firstName, email, password, role, resetToken, creationDate, address);
+        return Objects.hash(id, lastName, firstName, email, password, role, resetToken, creationDate, address, neighborGroup, loan);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", resetToken='" + resetToken + '\'' +
-                ", creationDate=" + creationDate +
-                ", address=" + address +
-                '}';
-    }
+
 }

@@ -17,7 +17,8 @@
   <section id="Identification">
     <!--      Contenu Utilisateur Non-authentifié-->
     <div class="container" sec:authorize="!isAuthenticated()">
-      <p>Vous devez créer être authentifié pour accéder à cette page</p>
+      <br \>
+      <p>Vous devez être authentifié pour accéder à cette page</p>
     </div>
 <!--    Contenu Utilisateur authentifié-->
     <div class="container" sec:authorize="isAuthenticated()">

@@ -9,6 +9,7 @@ public interface ApiRegistration {
 
     /* Users */
     String REST_USERS = "/users";
+    String REST_NEIGHBORS = "/neighbors";
     String REST_GET_USER_BY_EMAIL = "/getUserByEmail";
     String REST_GET_USER_BY_ID = "/getUserById";
     String REST_SAVE_USER = "/saveUser";
