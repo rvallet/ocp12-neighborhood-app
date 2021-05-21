@@ -3,6 +3,7 @@ package com.neighborhood.msneighborhood.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -32,6 +33,12 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     private Adresse address;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private NeighborGroup neighborGroup;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Collection<Loan> loan;
+
     public User() {
         super();
         this.creationDate= Calendar.getInstance().getTime();
@@ -44,7 +51,9 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.password = password;
         this.role = role;
-        this.creationDate= Calendar.getInstance().getTime();
+        this.creationDate = Calendar.getInstance().getTime();
+        this.address = new Adresse();
+        this.neighborGroup = new NeighborGroup();
     }
 
     public Long getId() {
@@ -69,14 +78,6 @@ public class User implements Serializable {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public Adresse getAddress() {
-        return address;
-    }
-
-    public void setAddress(Adresse address) {
-        this.address = address;
     }
 
     public String getEmail() {
@@ -117,6 +118,22 @@ public class User implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Adresse getAddress() {
+        return address;
+    }
+
+    public void setAddress(Adresse address) {
+        this.address = address;
+    }
+
+    public NeighborGroup getNeighborGroup() {
+        return neighborGroup;
+    }
+
+    public void setNeighborGroup(NeighborGroup neighborGroup) {
+        this.neighborGroup = neighborGroup;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.neighborhood.website.proxies;
 
+import com.neighborhood.website.beans.LoanBean;
 import com.neighborhood.website.beans.UserBean;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -33,5 +34,8 @@ public interface MicroServiceNeighborhoodProxy {
 
     @GetMapping(value="/getRoleList")
     List<String> getRoleList();
+
+    @GetMapping(value= "/findLoansListByUserId/{userId}")
+    List<LoanBean> getLoansByUserId(@PathVariable String userId);
 
 }

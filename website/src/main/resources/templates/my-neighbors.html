@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{base}">
+
+<head th:insert="base :: head"></head>
+<head>
+  <title>Site de bon voisinage - Neighborhood </title>
+  <meta name="description" content="Page d'identification des utilisateurs - Neighborhood"/>
+</head>
+<body>
+<th:block th:insert="base :: header">...</th:block>
+<main layout:fragment="main" role="main" th:remove="tag">
+  <section id="Identification">
+    <!--      Contenu Utilisateur Non-authentifié-->
+    <div class="container" sec:authorize="!isAuthenticated()">
+      <p>Vous devez créer être authentifié pour accéder à cette page</p>
+    </div>
+<!--    Contenu Utilisateur authentifié-->
+    <div class="container" sec:authorize="isAuthenticated()">
+    <p>Auth</p>
+
+    </div>
+  </section>
+</main>
+<th:block th:insert="base :: footer">...</th:block>
+<th:block th:insert="base :: script">...</th:block>
+</body>
+</html>

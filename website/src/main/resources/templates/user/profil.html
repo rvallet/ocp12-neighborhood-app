@@ -19,13 +19,13 @@
     <title>Mon profil utilisateur - Neighborhood </title>
     <meta name="description" content="Profil Utilisateur - Neighborhood"/>
 </head>
-<!--<body>
+<body>
 <th:block th:insert="base :: header">...</th:block>
 <main layout:fragment="main" role="main" th:remove="tag">
     <section id="UserProfile">
         <div class="container">
 
-            &lt;!&ndash; 					Menu &ndash;&gt;
+            <!-- 					Menu -->
             <nav>
                 <div class="nav nav-tabs anchor" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-profil-tab"
@@ -33,9 +33,9 @@
                        role="tab" aria-controls="nav-profil"
                        aria-selected="true">Mon Profil
                     </a>
-                    <a class="nav-item nav-link" id="nav-bookloan-tab"
-                       data-toggle="tab" href="#nav-bookloan"
-                       role="tab" aria-controls="nav-bookloan"
+                    <a class="nav-item nav-link" id="nav-loan-tab"
+                       data-toggle="tab" href="#nav-loan"
+                       role="tab" aria-controls="nav-loan"
                        aria-selected="false">Mes Emprunts en cours
                     </a>
                     <a class="nav-item nav-link" id="nav-history-tab"
@@ -43,17 +43,12 @@
                        role="tab" aria-controls="nav-history"
                        aria-selected="false">Mon Historique
                     </a>
-                    <a class="nav-item nav-link" id="nav-bookreservation-tab"
-                       data-toggle="tab" href="#nav-bookreservation"
-                       role="tab" aria-controls="nav-bookreservation"
-                       aria-selected="false">Mes Réservations
-                    </a>
                 </div>
             </nav>
 
             <div class="tab-content" id="nav-tabContent">
 
-                &lt;!&ndash; 					Mon Profil &ndash;&gt;
+                <!-- 					Mon Profil -->
                 <div class="tab-pane fade show active" id="nav-profil" role="tabpanel" aria-labelledby="nav-profil-tab">
                     <div class="col-md-12" th:value="${user}">
                         <br />
@@ -80,48 +75,34 @@
                     </div>
                 </div>
 
-                &lt;!&ndash; 					Mes emprunts de Livres &ndash;&gt;
-                <div class="tab-pane fade" id="nav-bookloan" role="tabpanel" aria-labelledby="nav-bookloan-tab">
-                    <div class="col-md-12" th:if="${bookLoanList==null or bookLoanList.isEmpty()}">
+                <!-- 					Mes emprunts -->
+                <div class="tab-pane fade" id="nav-loan" role="tabpanel" aria-labelledby="nav-loan-tab">
+                    <div class="col-md-12" th:if="${loanList==null or loanList.isEmpty()}">
                         <br />
                         <h3>Mes Emprunts</h3>
-                        <p>Vous n'avez aucun emprunt de livres en cours</p>
+                        <p>Vous n'avez aucun emprunt en cours</p>
                     </div>
-                    <div class="col-md-12" th:if="${bookLoanList!=null and !bookLoanList.isEmpty()}">
+                    <div class="col-md-12" th:if="${loanList!=null and !loanList.isEmpty()}">
                         <br />
-                        <h3>Mes Emprunts de livres</h3>
+                        <h3>Mes Emprunts</h3>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Titre</th>
+                                    <th scope="col">Objet</th>
                                     <th scope="col">Statut</th>
                                     <th scope="col">Date de l'emprunt</th>
                                     <th scope="col">Echéance</th>
-                                    <th scope="col">Prolongation de l'emprunt</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="bookLoan:${bookLoanList}" th:if="${bookLoan.loanStatus != 'Terminé'}">
-                                    <th scope="row"><span th:text="${bookLoan.id}">#</span></th>
-                                    <td><span th:text="${bookLoan.book?.title}">Titre</span></td>
-                                    <td><span th:text="${bookLoan.loanStatus}">Statut</span></td>
-                                    <td><span th:text="${#dates.format(bookLoan.startLoan, 'dd/MM/yyyy')}">Date de l'emprunt</span></td>
-                                    <td><span th:text="${#dates.format(bookLoan.endLoan, 'dd/MM/yyyy')}">Echéance</span></td>
-                                    <td>
-                                        <div class="text-center">
-                                            <span th:text="${bookLoan.getLoanExtended()} ? 'Oui' : 'Non'">Prolongation de l'emprunt</span>
-                                            <div th:if="${!bookLoan.getLoanExtended()}">
-                                                <form th:action="@{/user/update-bookloan}" th:object="${bookLoan}" method="get">
-                                                    <input type="hidden" name="id" th:value="${bookLoan?.id}">
-                                                    <input type="hidden" name="action" th:value="loanextended">
-                                                    <button class="text-center" type="submit" th:disabled="${bookLoan.endLoan.before(#dates.createNow())}">Prolonger</button>
-                                                </form>
-                                                <span th:if="${bookLoan.endLoan.before(#dates.createNow())}">Echéance à terme</span>
-                                            </div>
-                                        </div>
-                                    </td>
+                                <tr th:each="loan:${loanList}" th:if="${loan.loanStatus != 'Terminé'}">
+                                    <th scope="row"><span th:text="${loan.id}">#</span></th>
+                                    <td><span th:text="${loan.title}">Objet</span></td>
+                                    <td><span th:text="${loan.loanStatus}">Statut</span></td>
+                                    <td><span th:text="${#dates.format(loan.startLoan, 'dd/MM/yyyy')}">Date de l'emprunt</span></td>
+                                    <td><span th:text="${#dates.format(loan.endLoan, 'dd/MM/yyyy')}">Echéance</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -129,14 +110,14 @@
                     </div>
                 </div>
 
-                &lt;!&ndash; 					Mon Historique d'emprunts de Livres &ndash;&gt;
+                <!-- 					Mon Historique d'emprunts -->
                 <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
-                    <div class="col-md-12" th:if="${bookLoanList==null or bookLoanList.isEmpty()}">
+                    <div class="col-md-12" th:if="${loanList==null or loanList.isEmpty()}">
                         <br />
                         <h3>Mon historique</h3>
-                        <p>Vous n'avez aucun emprunt de livres en cours</p>
+                        <p>Vous n'avez aucun emprunt en cours</p>
                     </div>
-                    <div class="col-md-12" th:if="${bookLoanList!=null and !bookLoanList.isEmpty()}">
+                    <div class="col-md-12" th:if="${loanList!=null and !loanList.isEmpty()}">
                         <br />
                         <h3>Mon historique</h3>
                         <div class="table-responsive">
@@ -144,83 +125,23 @@
                                 <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Titre</th>
+                                    <th scope="col">Objet</th>
                                     <th scope="col">Statut</th>
                                     <th scope="col">Date de l'emprunt</th>
-                                    <th scope="col">Echéance</th>
-                                    <th scope="col">Date de retour</th>
-                                    <th scope="col">Prolongation de l'emprunt</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="bookLoan:${bookLoanList}">
-                                    <th scope="row"><span th:text="${bookLoan.id}">#</span></th>
-                                    <td><span th:text="${bookLoan.book?.title}">Titre</span></td>
-                                    <td><span th:text="${bookLoan.loanStatus}">Statut</span></td>
-                                    <td><span th:text="${#dates.format(bookLoan.startLoan, 'dd/MM/yyyy')}">Date de l'emprunt</span></td>
-                                    <td><span th:text="${#dates.format(bookLoan.endLoan, 'dd/MM/yyyy')}">Echéance</span></td>
-                                    <td>
-                                        <div class="text-center">
-                                            <span th:text="${bookLoan.returnLoan!=null} ? ${#dates.format(bookLoan.returnLoan, 'dd/MM/yyyy')} : '&#45;&#45;&#45;&#45;'">Date de retour</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="text-center">
-                                            <span th:text="${bookLoan.getLoanExtended()} ? 'Oui' : 'Non'">Prolongation de l'emprunt</span>
-                                        </div>
-                                    </td>
+                                <tr th:each="loan:${loanList}">
+                                    <th scope="row"><span th:text="${loan.id}">#</span></th>
+                                    <td><span th:text="${loan.title}">Titre</span></td>
+                                    <td><span th:text="${loan.loanStatus}">Statut</span></td>
+                                    <td><span th:text="${#dates.format(loan.startLoan, 'dd/MM/yyyy')}">Date de l'emprunt</span></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
-                &lt;!&ndash; 					Mes reservations de Livres &ndash;&gt;
-                <div class="tab-pane fade" id="nav-bookreservation" role="tabpanel" aria-labelledby="nav-bookreservationtab">
-                    <div class="col-md-12" th:if="${bookReservationList==null or bookReservationList.isEmpty()}">
-                        <br />
-                        <h3>Mes Réservations</h3>
-                        <p>Vous n'avez aucune reservation de livres en cours</p>
-                    </div>
-                    <div class="col-md-12" th:if="${bookReservationList!=null and !bookReservationList.isEmpty()}">
-                        <br />
-                        <h3>Mes Réservations de livres</h3>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Titre</th>
-                                    <th scope="col">Statut</th>
-                                    <th scope="col">Date de reservation</th>
-                                    <th scope="col">Prochain Retour</th>
-                                    <th scope="col">Ma position</th>
-                                    <th scope="col">Annulation</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="bookReservation:${bookReservationList}" th:if="${bookReservation.reservationStatus != 'Terminé'}">
-                                    <th scope="row"><span th:text="${bookReservation.id}">#</span></th>
-                                    <td><span th:text="${bookReservation.book?.title}">Titre</span></td>
-                                    <td><span th:text="${bookReservation.reservationStatus}">Statut</span></td>
-                                    <td><span th:text="${#dates.format(bookReservation.creationDate, 'dd/MM/yyyy')}">Date de reservation</span></td>
-                                    <td><span th:text="${endloanDateByBookId[__${bookReservation.book.id}__] ?:'-'}">Prochain Retour</span></td>
-                                    <td><span th:text="${reservationPositionList[__${bookReservation.book.id}__] ?:'-'}">Ma position</span></td>
-                                    <td>
-                                        <form th:action="@{/user/close-bookReservation}" method="get">
-                                            <input type="hidden" name="bookReservationId" th:value="${bookReservation.id}">
-                                            <button class="text-center" type="submit">Annuler</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
 
 
@@ -229,5 +150,5 @@
 </main>
 <th:block th:insert="base :: footer">...</th:block>
 <th:block th:insert="base :: script">...</th:block>
-</body>-->
+</body>
 </html>
