@@ -32,15 +32,21 @@ public class User implements Serializable {
 
     private Date creationDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Adresse address;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_address",
+            joinColumns =
+                    { @JoinColumn(name = "id_user", referencedColumnName = "id_user") },
+            inverseJoinColumns =
+                    { @JoinColumn(name = "id_address", referencedColumnName = "id_address") })
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Address address;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_neighborgroup")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private NeighborGroup neighborGroup;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<Loan> loan;
 
     public User() {
@@ -122,11 +128,11 @@ public class User implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public Adresse getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Adresse address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -158,6 +164,5 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(id, lastName, firstName, email, password, role, resetToken, creationDate, address, neighborGroup, loan);
     }
-
 
 }

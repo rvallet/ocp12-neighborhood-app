@@ -20,7 +20,7 @@ public class UserBean {
 
     private Date creationDate;
 
-    private AdresseBean adresse;
+    private AddressBean address;
 
     private NeighborGroupBean neighborGroup;
 
@@ -48,12 +48,12 @@ public class UserBean {
         this.firstName = firstName;
     }
 
-    public AdresseBean getAdresse() {
-        return adresse;
+    public AddressBean getAddress() {
+        return address;
     }
 
-    public void setAdresse(AdresseBean adresse) {
-        this.adresse = adresse;
+    public void setAddress(AddressBean address) {
+        this.address = address;
     }
 
     public String getEmail() {

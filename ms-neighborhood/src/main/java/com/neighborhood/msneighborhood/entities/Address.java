@@ -1,15 +1,17 @@
 package com.neighborhood.msneighborhood.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name="adresse")
-public class Adresse implements Serializable {
+@Table(name="address")
+public class Address implements Serializable {
 
     @Id
-    @Column(name="id_adresse")
+    @Column(name="id_address")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
@@ -21,14 +23,15 @@ public class Adresse implements Serializable {
 
     private String city;
 
-    @OneToOne
+    @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
 
-    public Adresse(){
+    public Address(){
         super();
     }
 
-    public Adresse(String number, String streetName, String postCode, String city) {
+    public Address(String number, String streetName, String postCode, String city) {
         this.number = number;
         this.streetName = streetName;
         this.postCode = postCode;
@@ -87,7 +90,7 @@ public class Adresse implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Adresse adresse = (Adresse) o;
+        Address adresse = (Address) o;
         return Objects.equals(id, adresse.id) && Objects.equals(number, adresse.number) && Objects.equals(streetName, adresse.streetName) && Objects.equals(postCode, adresse.postCode) && Objects.equals(city, adresse.city) && Objects.equals(user, adresse.user);
     }
 
@@ -96,15 +99,4 @@ public class Adresse implements Serializable {
         return Objects.hash(id, number, streetName, postCode, city, user);
     }
 
-    @Override
-    public String toString() {
-        return "Adresse{" +
-                "id=" + id +
-                ", number='" + number + '\'' +
-                ", streetName='" + streetName + '\'' +
-                ", postCode='" + postCode + '\'' +
-                ", city='" + city + '\'' +
-                ", user=" + user +
-                '}';
-    }
 }

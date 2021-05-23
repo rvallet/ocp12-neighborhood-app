@@ -1,6 +1,6 @@
 package com.neighborhood.website.beans;
 
-public class AdresseBean {
+public class AddressBean {
 
     private Long id;
 

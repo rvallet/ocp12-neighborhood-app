@@ -1,6 +1,6 @@
 package com.neighborhood.website.controller;
 
-import com.neighborhood.website.beans.AdresseBean;
+import com.neighborhood.website.beans.AddressBean;
 import com.neighborhood.website.beans.UserBean;
 import com.neighborhood.website.dto.UserRegistrationDto;
 import com.neighborhood.website.proxies.MicroServiceNeighborhoodProxy;
@@ -62,7 +62,7 @@ public class UserRegistrationController {
         user.setEmail(userDto.getEmail());
         user.setPassword(webSecurityConfig.passwordEncoder().encode(userDto.getPassword()));
         user.setRole(userDto.getRole() == null ? "user" : userDto.getRole());
-        user.setAdresse(new AdresseBean());
+        user.setAddress(new AddressBean());
         user.setCreationDate(new Date());
 
         microServiceNeighborhoodProxy.saveUser(user);

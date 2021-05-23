@@ -18,7 +18,7 @@ public class NeighborGroup implements Serializable {
 
     private String name;
 
-    @OneToMany(mappedBy = "neighborGroup", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "neighborGroup", fetch = FetchType.LAZY)
     @JsonIgnore
     private Collection<User> neighbors;
 

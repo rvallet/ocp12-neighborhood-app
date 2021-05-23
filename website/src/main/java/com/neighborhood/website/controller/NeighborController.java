@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class NeighborController {
@@ -29,8 +30,11 @@ public class NeighborController {
         List<UserBean> neighborsList = new ArrayList<>();
         if (u!=null && u.getNeighborGroup() !=null) {
             neighborsList = microServiceNeighborhoodProxy.getNeighborsByGroupId(u.getNeighborGroup().getId());
+            neighborsList  = neighborsList.stream()
+                    .filter(o -> !o.getEmail().equals(u.getEmail()))
+                    .collect(Collectors.toList());
         }
-
+        model.addAttribute("user", u);
         model.addAttribute("neighborsList" , neighborsList);
 
         return "my-neighbors";
