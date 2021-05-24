@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findUsersByNeighborGroupId(Long groupId) {
+        return userRepository.findUsersByNeighborGroupId(groupId);
+    }
+
+    @Override
     public User findUserById(Long id) {
         return userRepository.findUserById(id);
     }
