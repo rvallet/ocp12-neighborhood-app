@@ -20,7 +20,7 @@
 	<artifactId>cloud-config</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cloud-config</name>
-	<description>Serveur de configuration da l'applicatif Neighborhood</description>
+	<description>Serveur de configuration de l'applicatif Neighborhood</description>
 
 	<!-- =============================================================== -->
 	<!-- PROPERTIES -->

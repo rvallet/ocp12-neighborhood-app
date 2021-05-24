@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/",
                         "/accueil**",
                         "/creation-compte**",
+                        "/my-neighbors**",
                         "/contact**",
                         "/about**",
                         "/cgu**",

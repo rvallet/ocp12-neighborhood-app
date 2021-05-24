@@ -1,8 +1,11 @@
 package com.neighborhood.msneighborhood.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,8 +32,22 @@ public class User implements Serializable {
 
     private Date creationDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Adresse address;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_address",
+            joinColumns =
+                    { @JoinColumn(name = "id_user", referencedColumnName = "id_user") },
+            inverseJoinColumns =
+                    { @JoinColumn(name = "id_address", referencedColumnName = "id_address") })
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Address address;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_neighborgroup")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private NeighborGroup neighborGroup;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Collection<Loan> loan;
 
     public User() {
         super();
@@ -44,7 +61,7 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.password = password;
         this.role = role;
-        this.creationDate= Calendar.getInstance().getTime();
+        this.creationDate = Calendar.getInstance().getTime();
     }
 
     public Long getId() {
@@ -69,14 +86,6 @@ public class User implements Serializable {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public Adresse getAddress() {
-        return address;
-    }
-
-    public void setAddress(Adresse address) {
-        this.address = address;
     }
 
     public String getEmail() {
@@ -119,31 +128,41 @@ public class User implements Serializable {
         this.creationDate = creationDate;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public NeighborGroup getNeighborGroup() {
+        return neighborGroup;
+    }
+
+    public void setNeighborGroup(NeighborGroup neighborGroup) {
+        this.neighborGroup = neighborGroup;
+    }
+
+    public Collection<Loan> getLoan() {
+        return loan;
+    }
+
+    public void setLoan(Collection<Loan> loan) {
+        this.loan = loan;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(resetToken, user.resetToken) && Objects.equals(creationDate, user.creationDate) && Objects.equals(address, user.address);
+        return Objects.equals(id, user.id) && Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(resetToken, user.resetToken) && Objects.equals(creationDate, user.creationDate) && Objects.equals(address, user.address) && Objects.equals(neighborGroup, user.neighborGroup) && Objects.equals(loan, user.loan);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastName, firstName, email, password, role, resetToken, creationDate, address);
+        return Objects.hash(id, lastName, firstName, email, password, role, resetToken, creationDate, address, neighborGroup, loan);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", resetToken='" + resetToken + '\'' +
-                ", creationDate=" + creationDate +
-                ", address=" + address +
-                '}';
-    }
 }

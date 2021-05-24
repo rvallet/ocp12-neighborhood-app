@@ -20,7 +20,9 @@ public class UserBean {
 
     private Date creationDate;
 
-    private AdresseBean adresse;
+    private AddressBean address;
+
+    private NeighborGroupBean neighborGroup;
 
     public Long getId() {
         return id;
@@ -46,12 +48,12 @@ public class UserBean {
         this.firstName = firstName;
     }
 
-    public AdresseBean getAdresse() {
-        return adresse;
+    public AddressBean getAddress() {
+        return address;
     }
 
-    public void setAdresse(AdresseBean adresse) {
-        this.adresse = adresse;
+    public void setAddress(AddressBean address) {
+        this.address = address;
     }
 
     public String getEmail() {
@@ -94,19 +96,12 @@ public class UserBean {
         this.creationDate = creationDate;
     }
 
-    @Override
-    public String toString() {
-        return "UserBean{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", resetToken='" + resetToken + '\'' +
-                ", creationDate=" + creationDate +
-                ", adresse=" + adresse +
-                '}';
+    public NeighborGroupBean getNeighborGroup() {
+        return neighborGroup;
+    }
+
+    public void setNeighborGroup(NeighborGroupBean neighborGroup) {
+        this.neighborGroup = neighborGroup;
     }
 
 }

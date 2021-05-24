@@ -21,7 +21,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>website</name>
-    <description>Site Web Neigborhood</description>
+    <description>Site Web Neighborhood</description>
 
     <!-- =============================================================== -->
     <!-- PROPERTIES -->
