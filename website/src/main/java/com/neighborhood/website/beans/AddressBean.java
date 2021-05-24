@@ -1,6 +1,6 @@
 package com.neighborhood.website.beans;
 
-public class AdresseBean {
+public class AddressBean {
 
     private Long id;
 
@@ -52,14 +52,4 @@ public class AdresseBean {
         this.city = city;
     }
 
-    @Override
-    public String toString() {
-        return "AdresseBean{" +
-                "id=" + id +
-                ", number='" + number + '\'' +
-                ", streetName='" + streetName + '\'' +
-                ", postCode='" + postCode + '\'' +
-                ", city='" + city + '\'' +
-                '}';
-    }
 }

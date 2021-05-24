@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{base}">
+
+<head th:insert="base :: head"></head>
+<head>
+  <title>Site de bon voisinage - Neighborhood </title>
+  <meta name="description" content="Page d'identification des utilisateurs - Neighborhood"/>
+</head>
+<body>
+<th:block th:insert="base :: header">...</th:block>
+<main layout:fragment="main" role="main" th:remove="tag">
+  <section id="Identification">
+    <!--      Contenu Utilisateur Non-authentifié-->
+    <div class="container" sec:authorize="!isAuthenticated()">
+      <br \>
+      <p>Vous devez être authentifié pour accéder à cette page</p>
+    </div>
+<!--    Contenu Utilisateur authentifié-->
+    <div class="container" sec:authorize="isAuthenticated()">
+
+      <!-- Mes voisins -->
+      <div class="col-md-12" th:if="${user.getNeighborGroup() != null and neighborsList.isEmpty()}">
+        <br />
+        <h3>Mes Voisins</h3>
+        <p>Vous n'avez encore aucun voisins enregistré sur ce groupe</p>
+      </div>
+      <div class="col-md-12" th:if="${user.getNeighborGroup() == null}">
+        <br />
+        <h3>Mes Voisins</h3>
+        <p>Vous n'êtes pas encore enregisté sur votre groupe</p>
+      </div>
+      <div class="col-md-12" th:if="${!neighborsList.isEmpty()}">
+        <br />
+        <h3>Mes Voisins</h3>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">Adresse</th>
+              <th scope="col">Contact</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="neighbor:${neighborsList}">
+              <th scope="row"><span th:text="${neighborsList.indexOf(neighbor)+1}">#</span></th>
+              <td><span th:text="${neighbor.getLastName()}">Nom</span></td>
+              <td><span th:text="${neighbor.getFirstName()}">Prénom</span></td>
+              <td><span th:text="${neighbor.getAddress()?.getNumber()} + ',' + ${neighbor.getAddress()?.getStreetName()}">Adresse</span></td>
+              <td><span th:text="Contact">Contact</span></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+</main>
+<th:block th:insert="base :: footer">...</th:block>
+<th:block th:insert="base :: script">...</th:block>
+</body>
+</html>
