@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,14 @@ public class ServicesController {
         LOGGER.info("Accès à la page des services");
         UserBean u = microServiceNeighborhoodProxy.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         List<String> typeList = microServiceNeighborhoodProxy.getServiceRequestTypeList();
+        List<ServiceRequestBean> serviceList = new ArrayList<>();
+        Long neighborgroupId = u.getNeighborGroup().getId();
+
+        if (neighborgroupId !=null) {
+            serviceList = microServiceNeighborhoodProxy.getServiceRequestListByNeighborgroupId(neighborgroupId);
+        }
+
+        model.addAttribute("serviceList", serviceList);
         model.addAttribute("user", u);
         model.addAttribute("typeList", typeList);
         return "services";

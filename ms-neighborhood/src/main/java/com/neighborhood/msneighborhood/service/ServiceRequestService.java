@@ -11,4 +11,8 @@ public interface ServiceRequestService {
     ServiceRequest save(ServiceRequest serviceRequestToCreate);
 
     List<String> getServiceRequestTypeList();
+
+    List<ServiceRequest> findServiceRequestListByNeighborGroupId(Long groupId);
+
+    List<String> getActiveServiceStatusList();
 }

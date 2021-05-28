@@ -1,6 +1,7 @@
 package com.neighborhood.msneighborhood.service.impl;
 
 import com.neighborhood.msneighborhood.entities.ServiceRequest;
+import com.neighborhood.msneighborhood.enumerated.RequestStatusEnum;
 import com.neighborhood.msneighborhood.enumerated.ServiceRequestTypeEnum;
 import com.neighborhood.msneighborhood.repository.ServiceRequestRepository;
 import com.neighborhood.msneighborhood.service.ServiceRequestService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -44,6 +46,18 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         }
         LOGGER.info("Envoi d'une liste de {} types de services", result.size());
         return result;
+    }
+
+    @Override
+    public List<ServiceRequest> findServiceRequestListByNeighborGroupId(Long groupId) {
+        return serviceRequestRepository.findServiceRequestsByNeighborGroupIdAndFilteredByStatusList(groupId, getActiveServiceStatusList());
+    }
+
+    @Override
+    public List<String> getActiveServiceStatusList() {
+        return Arrays.asList(
+                RequestStatusEnum.IN_PROGRESS.toString()
+        );
     }
 
 }

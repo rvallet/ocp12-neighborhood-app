@@ -23,4 +23,5 @@ public interface ApiRegistration {
     String REST_REQUEST_SERVICE_LIST_BY_USER_ID = "/findServiceRequestsByUserId";
     String REST_CREATE_SERVICE_REQUEST = "/createServiceRequest";
     String REST_GET_SERVICE_REQUEST_TYPE = "/getServiceRequestTypeList";
+    String REST_GET_SERVICE_REQUEST_LIST_BY_GROUP_ID = "/getServiceRequestListByNeighborgroupId";
 }

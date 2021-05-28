@@ -51,4 +51,9 @@ public class ServiceRequestController {
     public List<String> getServiceRequestTypeList() {
         return requestService.getServiceRequestTypeList();
     }
+
+    @GetMapping(value= ApiRegistration.REST_GET_SERVICE_REQUEST_LIST_BY_GROUP_ID +"/{groupId}")
+    public List<ServiceRequest> findServiceRequestListByNeighborGroupId (@PathVariable Long groupId) {
+        return requestService.findServiceRequestListByNeighborGroupId(groupId);
+    }
 }

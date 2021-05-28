@@ -49,6 +49,9 @@ public interface MicroServiceNeighborhoodProxy {
     @GetMapping(value = "getServiceRequestTypeList")
     List<String> getServiceRequestTypeList();
 
+    @GetMapping(value = "getServiceRequestListByNeighborgroupId/{groupId}")
+    List<ServiceRequestBean> getServiceRequestListByNeighborgroupId(@PathVariable Long groupId);
+
     /* Loans */
     @GetMapping(value= "/findLoansListByUserId/{userId}")
     List<LoanBean> getLoansByUserId(@PathVariable Long userId);
