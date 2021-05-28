@@ -17,4 +17,8 @@ public interface ApiRegistration {
 
     /* Loans */
     String REST_LOANS_LIST_BY_USER_ID = "/findLoansListByUserId";
+
+    /* Services */
+    String REST_REQUEST_SERVICE_LIST_BY_USER_ID = "/findServiceRequestsByUserId";
+
 }

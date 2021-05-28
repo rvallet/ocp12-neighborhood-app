@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{base}">
+
+<head th:insert="base :: head"></head>
+<head>
+  <title>Les Services - Neighborhood </title>
+  <meta name="description" content="Les Services - Neighborhood"/>
+</head>
+<body>
+<th:block th:insert="base :: header">...</th:block>
+<main layout:fragment="main" role="main" th:remove="tag">
+  <section id="Services">
+    <div class="container">
+      <br />
+      <h3>Les Services</h3>
+      <br />
+
+      Emprunter du matériel
+
+      Demander un service
+      Proposer un achat groupé
+      Réserver un outil
+
+    </div>
+  </section>
+</main>
+<th:block th:insert="base :: footer">...</th:block>
+<th:block th:insert="base :: script">...</th:block>
+</body>
+</html>
