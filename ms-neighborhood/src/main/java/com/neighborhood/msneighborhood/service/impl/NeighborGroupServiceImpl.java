@@ -19,6 +19,9 @@ public class NeighborGroupServiceImpl implements NeighborGroupService {
 
     @Override
     public NeighborGroup save(NeighborGroup neighborGroup) {
+        LOGGER.info(
+                "Enregistrement d'un groupe de voisin (nom : {})",
+                neighborGroup.getName());
         return neighborGroupRepository.save(neighborGroup);
     }
 

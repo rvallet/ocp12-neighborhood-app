@@ -1,6 +1,7 @@
 package com.neighborhood.website.proxies;
 
 import com.neighborhood.website.beans.LoanBean;
+import com.neighborhood.website.beans.ServiceRequestBean;
 import com.neighborhood.website.beans.UserBean;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -18,11 +19,9 @@ import java.util.List;
 @RibbonClient(name = "ms-neighborhood")
 public interface MicroServiceNeighborhoodProxy {
 
+    /* Users */
     @GetMapping(value= "/users")
     List<UserBean> getUsers();
-
-    @GetMapping(value= "/neighbors/{groupId}")
-    List<UserBean> getNeighborsByGroupId(@PathVariable Long groupId);
 
     @GetMapping(value= "/users/page/{pageNumber}/{pageSize}")
     Page<UserBean> getPaginatedUsers(@PathVariable int pageNumber, @PathVariable int pageSize);
@@ -39,7 +38,19 @@ public interface MicroServiceNeighborhoodProxy {
     @GetMapping(value="/getRoleList")
     List<String> getRoleList();
 
+    /* Neighbors */
+    @GetMapping(value= "/neighbors/{groupId}")
+    List<UserBean> getNeighborsByGroupId(@PathVariable Long groupId);
+
+    /* Services */
+    @PostMapping(value = "/createServiceRequest/{userId}")
+    ServiceRequestBean createServiceRequest(@RequestBody ServiceRequestBean serviceRequest, @PathVariable Long userId);
+
+    @GetMapping(value = "getServiceRequestTypeList")
+    List<String> getServiceRequestTypeList();
+
+    /* Loans */
     @GetMapping(value= "/findLoansListByUserId/{userId}")
-    List<LoanBean> getLoansByUserId(@PathVariable String userId);
+    List<LoanBean> getLoansByUserId(@PathVariable Long userId);
 
 }

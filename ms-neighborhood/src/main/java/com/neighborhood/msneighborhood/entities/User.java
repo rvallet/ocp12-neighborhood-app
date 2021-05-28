@@ -50,11 +50,13 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<Loan> loan;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Collection<Loan> loanList;
 
     @OneToMany(mappedBy = "user")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ServiceRequest> serviceRequests;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Collection<ServiceRequest> serviceRequestList;
 
     public User() {
         super();
@@ -151,20 +153,19 @@ public class User implements Serializable {
         this.neighborGroup = neighborGroup;
     }
 
-    public Collection<Loan> getLoan() {
-        return loan;
+    public Collection<Loan> getLoanList() {
+        return loanList;
     }
 
-    public void setLoan(Collection<Loan> loan) {
-        this.loan = loan;
+    public void setLoanList(Collection<Loan> loanList) {
+        this.loanList = loanList;
     }
 
-    public Collection<ServiceRequest> getServiceRequests() {
-        return serviceRequests;
+    public Collection<ServiceRequest> getServiceRequestList() {
+        return serviceRequestList;
     }
 
-    public void setServiceRequests(Collection<ServiceRequest> serviceRequests) {
-        this.serviceRequests = serviceRequests;
+    public void setServiceRequestList(Collection<ServiceRequest> serviceRequestList) {
+        this.serviceRequestList = serviceRequestList;
     }
-
 }

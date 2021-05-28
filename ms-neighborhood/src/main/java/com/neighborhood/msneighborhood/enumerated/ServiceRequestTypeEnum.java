@@ -4,7 +4,7 @@ public enum ServiceRequestTypeEnum {
 
     TOOL_LOAN ("Emprunt d'outils"),
     GROUPED_PURCHASE ("Achat groupé"),
-    MISCELLANEOUS_SERVICE ("Service diver");
+    MISCELLANEOUS_SERVICE ("Service divers");
 
     private String serviceRequestType;
 

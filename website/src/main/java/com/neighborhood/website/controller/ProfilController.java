@@ -27,7 +27,7 @@ public class ProfilController {
         UserBean u = microServiceNeighborhoodProxy.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("user" , u );
 
-        List<LoanBean> loanList = microServiceNeighborhoodProxy.getLoansByUserId(u.getId().toString());
+        List<LoanBean> loanList = microServiceNeighborhoodProxy.getLoansByUserId(u.getId());
         model.addAttribute("loanList" , loanList);
 
         LOGGER.info(
