@@ -54,7 +54,13 @@
               <td><span th:text="${neighbor.getLastName()}">Nom</span></td>
               <td><span th:text="${neighbor.getFirstName()}">Prénom</span></td>
               <td><span th:text="${neighbor.getAddress()?.getNumber()} + ',' + ${neighbor.getAddress()?.getStreetName()}">Adresse</span></td>
-              <td><span th:text="Contact">Contact</span></td>
+              <td>
+                <form th:action="@{/contact}" method="get">
+                  <input type="hidden" name="id_neighbor" th:value="${neighbor.id}">
+                  <input type="hidden" name="id_user" th:value="${user.id}">
+                  <button class="text-center" type="submit">Contacter</button>
+                </form>
+              </td>
             </tr>
             </tbody>
           </table>

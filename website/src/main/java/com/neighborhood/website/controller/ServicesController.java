@@ -70,4 +70,12 @@ public class ServicesController {
 
         return "redirect:/services";
     }
+
+    @GetMapping(path = {"/user/close-loan"})
+    public String closeLoan (
+            @RequestParam(name="id_loan") Long loanId)
+            {
+        LOGGER.info("loanId {}", loanId);
+        return "redirect:/user/profil#nav-loan";
+    }
 }

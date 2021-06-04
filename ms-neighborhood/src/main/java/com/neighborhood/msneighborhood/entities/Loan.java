@@ -1,5 +1,6 @@
 package com.neighborhood.msneighborhood.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.neighborhood.msneighborhood.enumerated.LoanStatusEnum;
 import com.neighborhood.msneighborhood.utils.DateTools;
@@ -28,11 +29,14 @@ public class Loan implements Serializable {
 
     private String loanStatus;
 
+    private String ownerFullName;
+
     private Long ownerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonBackReference
     private User user;
 
     public Loan() {
@@ -96,6 +100,14 @@ public class Loan implements Serializable {
         this.loanStatus = loanStatus;
     }
 
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
+    }
+
     public Long getOwnerId() {
         return ownerId;
     }
@@ -117,11 +129,11 @@ public class Loan implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Loan loan = (Loan) o;
-        return Objects.equals(id, loan.id) && Objects.equals(title, loan.title) && Objects.equals(startLoan, loan.startLoan) && Objects.equals(endLoan, loan.endLoan) && Objects.equals(returnLoan, loan.returnLoan) && Objects.equals(loanStatus, loan.loanStatus) && Objects.equals(user, loan.user);
+        return Objects.equals(id, loan.id) && Objects.equals(title, loan.title) && Objects.equals(startLoan, loan.startLoan) && Objects.equals(endLoan, loan.endLoan) && Objects.equals(returnLoan, loan.returnLoan) && Objects.equals(loanStatus, loan.loanStatus) && Objects.equals(ownerFullName, loan.ownerFullName) && Objects.equals(ownerId, loan.ownerId) && Objects.equals(user, loan.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, startLoan, endLoan, returnLoan, loanStatus, ownerId, user);
+        return Objects.hash(id, title, startLoan, endLoan, returnLoan, loanStatus, ownerFullName, ownerId, user);
     }
 }

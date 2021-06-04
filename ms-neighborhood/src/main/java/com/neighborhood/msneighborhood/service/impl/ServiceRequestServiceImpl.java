@@ -83,11 +83,11 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
         if (serviceRequest != null && helperUser != null) {
 
             if (serviceRequest.getRequestType().equals(ServiceRequestTypeEnum.TOOL_LOAN.toString())) {
-                //TODO : create Loan
                 User helpedUser = userRepository.findUserById(serviceRequest.getUser().getId());
                 Loan loan = new Loan(helpedUser);
                 loan.setTitle(serviceRequest.getDescription());
                 loan.setOwnerId(helperUser.getId());
+                loan.setOwnerFullName(helperUser.getFullName());
                 LOGGER.info(
                         "Création d'un prêt (Emprunteur : {} - Propriétaire : {})",
                         helpedUser.getEmail(),

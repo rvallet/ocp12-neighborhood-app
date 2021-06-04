@@ -16,6 +16,8 @@ public class LoanBean {
 
     private String loanStatus;
 
+    private String ownerFullName;
+
     private Long ownerId;
 
     private UserBean user;
@@ -74,6 +76,14 @@ public class LoanBean {
 
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
     }
 
     public UserBean getUser() {

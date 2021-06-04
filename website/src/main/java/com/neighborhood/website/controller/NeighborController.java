@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,20 @@ public class NeighborController {
         model.addAttribute("neighborsList" , neighborsList);
 
         return "my-neighbors";
+    }
+
+    @GetMapping(path= {"/contact"})
+    public String contactNeighbor(
+            @RequestParam(name="id_neighbor") Long neighborId,
+            @RequestParam(name="id_user") Long userId
+    ) {
+        //TODO : send msg to ms-batch and confirm back
+        LOGGER.info(
+                "Envoie d'un message du userId {} vers {}",
+                userId,
+                neighborId);
+
+        return "redirect:/my-neighbors";
     }
 
 }
