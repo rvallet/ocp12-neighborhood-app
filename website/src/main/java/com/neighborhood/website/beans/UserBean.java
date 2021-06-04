@@ -1,5 +1,6 @@
 package com.neighborhood.website.beans;
 
+import java.util.Collection;
 import java.util.Date;
 
 public class UserBean {
@@ -23,6 +24,10 @@ public class UserBean {
     private AddressBean address;
 
     private NeighborGroupBean neighborGroup;
+
+    private Collection<LoanBean> loanList;
+
+    private Collection<ServiceRequestBean> serviceRequestList;
 
     public Long getId() {
         return id;
@@ -104,4 +109,19 @@ public class UserBean {
         this.neighborGroup = neighborGroup;
     }
 
+    public Collection<LoanBean> getLoanList() {
+        return loanList;
+    }
+
+    public void setLoanList(Collection<LoanBean> loanList) {
+        this.loanList = loanList;
+    }
+
+    public Collection<ServiceRequestBean> getServiceRequestList() {
+        return serviceRequestList;
+    }
+
+    public void setServiceRequestList(Collection<ServiceRequestBean> serviceRequestList) {
+        this.serviceRequestList = serviceRequestList;
+    }
 }

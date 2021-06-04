@@ -72,6 +72,12 @@
                             </div>
                             <input type="text" class="form-control" th:placeholder="${user?.email}" disabled />
                         </div>
+                        <div class="input-group mb-3 col-md-9">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Mon groupe</label>
+                            </div>
+                            <input type="text" class="form-control" th:placeholder="${user?.getNeighborGroup()?.getName()}" disabled />
+                        </div>
                     </div>
                 </div>
 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{base}">
+
+<head th:insert="base :: head"></head>
+<head>
+  <title>Les Services - Neighborhood </title>
+  <meta name="description" content="Les Services - Neighborhood"/>
+</head>
+<body>
+<th:block th:insert="base :: header">...</th:block>
+<main layout:fragment="main" role="main" th:remove="tag">
+  <section id="Services">
+    <div class="container">
+      <br />
+      <h3>Les Services</h3>
+      <br />
+
+      <!-- Ajouter une demande de service -->
+      <h2>Demander un service</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col-10">
+            <div class="container text-center">
+              <br />
+              <form th:action="@{services/create-serviceRequest}" method="post">
+                <div class="form-group row">
+                  <label for="type" class="col-sm-2 col-form-label">
+                    Type
+                  </label>
+                  <div class="col-sm-10">
+                    <select class="form-control" id="type" name="type" th:value="${typeList}" required>
+                      <option value=""> -Sélectionner un type de service- </option>
+                      <option th:each="type : ${typeList}"
+                              th:value="${type}"
+                              th:utext="${type}"
+                              th:selected="${type}==${typeList}"/>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="description" class="col-sm-2 col-form-label">
+                    Description
+                  </label>
+                  <div class="col-sm-10">
+                    <textarea class="form-control" id="description" rows="3" th:name="desc" placeholder="Description" required></textarea>
+                  </div>
+                </div>
+                <button class="btn btn-success" type="submit">
+                  Valider
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+
+      <!-- Liste des demandes de services -->
+      <br />
+      <h2>Liste des demandes de Services</h2>
+      <br />
+
+      <!-- Liste des demandes de services (Cards) -->
+      <div th:if="${serviceList!=null and !serviceList.isEmpty()}">
+        <br />
+        <h3>Liste des demandes de Services</h3>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 row-cols-xl-5">
+          <div class="col mb-4" id="serviceList" th:each="service:${serviceList}" th:if="${service}">
+            <div class="card h-100">
+              <img class="card-img-top img-fluid" th:src="@{/img/service/default_service_900x400.jpg}" th:alt="${service.requestType}" alt="">
+              <div class="card-body">
+                <div class="card-header">
+                  <p class="card-title text-center" th:text="${service.requestType}">Type</p>
+                </div>
+                <p class="card-text" th:text="${service.description}">Description</p>
+                <p class="text-muted"> Demandeur : <span th:text="${service.author}">Nom Voisin</span></p>
+                <p class="card-text text-right"><small class="text-muted" th:text="'Demande du ' + ${#dates.format(service.creationDate, 'dd/MM/yyyy')}">Date de creation</small></p>
+              </div>
+              <div class="card-footer">
+                <form th:action="@{validatedService}" sec:authorize="isAuthenticated()" method="get">
+                  <input type="hidden" name="id_service" th:value="${service.id}"/>
+                  <button type="submit" class="btn btn-secondary btn-block">
+                    Se proposer
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+<th:block th:insert="base :: footer">...</th:block>
+<th:block th:insert="base :: script">...</th:block>
+</body>
+</html>

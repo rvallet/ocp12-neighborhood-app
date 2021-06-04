@@ -1,6 +1,9 @@
 package com.neighborhood.msneighborhood.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -46,8 +49,16 @@ public class User implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private NeighborGroup neighborGroup;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Collection<Loan> loan;
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Collection<Loan> loanList;
+
+    @OneToMany(mappedBy = "user")
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonManagedReference
+    private Collection<ServiceRequest> serviceRequestList;
 
     public User() {
         super();
@@ -144,25 +155,23 @@ public class User implements Serializable {
         this.neighborGroup = neighborGroup;
     }
 
-    public Collection<Loan> getLoan() {
-        return loan;
+    public Collection<Loan> getLoanList() {
+        return loanList;
     }
 
-    public void setLoan(Collection<Loan> loan) {
-        this.loan = loan;
+    public void setLoanList(Collection<Loan> loanList) {
+        this.loanList = loanList;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(lastName, user.lastName) && Objects.equals(firstName, user.firstName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(resetToken, user.resetToken) && Objects.equals(creationDate, user.creationDate) && Objects.equals(address, user.address) && Objects.equals(neighborGroup, user.neighborGroup) && Objects.equals(loan, user.loan);
+    public Collection<ServiceRequest> getServiceRequestList() {
+        return serviceRequestList;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, lastName, firstName, email, password, role, resetToken, creationDate, address, neighborGroup, loan);
+    public void setServiceRequestList(Collection<ServiceRequest> serviceRequestList) {
+        this.serviceRequestList = serviceRequestList;
     }
 
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
+    }
 }
