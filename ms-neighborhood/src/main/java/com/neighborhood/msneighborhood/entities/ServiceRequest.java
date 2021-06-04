@@ -32,6 +32,8 @@ public class ServiceRequest implements Serializable {
 
     private Date creationDate;
 
+    private Date closingDate;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -110,6 +112,14 @@ public class ServiceRequest implements Serializable {
         this.creationDate = creationDate;
     }
 
+    public Date getClosingDate() {
+        return closingDate;
+    }
+
+    public void setClosingDate(Date closingDate) {
+        this.closingDate = closingDate;
+    }
+
     public User getUser() {
         return user;
     }
@@ -123,11 +133,11 @@ public class ServiceRequest implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServiceRequest that = (ServiceRequest) o;
-        return Objects.equals(id, that.id) && Objects.equals(requestType, that.requestType) && Objects.equals(description, that.description) && Objects.equals(requestStatus, that.requestStatus) && Objects.equals(author, that.author) && Objects.equals(helper, that.helper) && Objects.equals(creationDate, that.creationDate) && Objects.equals(user, that.user);
+        return Objects.equals(id, that.id) && Objects.equals(requestType, that.requestType) && Objects.equals(description, that.description) && Objects.equals(requestStatus, that.requestStatus) && Objects.equals(author, that.author) && Objects.equals(helper, that.helper) && Objects.equals(creationDate, that.creationDate) && Objects.equals(closingDate, that.closingDate) && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, requestType, description, requestStatus, author, helper, creationDate, user);
+        return Objects.hash(id, requestType, description, requestStatus, author, helper, creationDate, closingDate, user);
     }
 }

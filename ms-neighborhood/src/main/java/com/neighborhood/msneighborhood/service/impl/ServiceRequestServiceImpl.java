@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -98,6 +99,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
 
             serviceRequest.setRequestStatus(RequestStatusEnum.CLOSED.toString());
             serviceRequest.setHelper(helperUser.getFullName());
+            serviceRequest.setClosingDate(new Date());
         }
 
         LOGGER.info(

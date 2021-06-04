@@ -58,6 +58,7 @@ public interface MicroServiceNeighborhoodProxy {
     @GetMapping(value= "/findLoansListByUserId/{userId}")
     List<LoanBean> getLoansByUserId(@PathVariable Long userId);
 
-
+    @GetMapping(value= "/closeLoan/{loanId}")
+    LoanBean closeLoan(@PathVariable Long loanId);
 
 }

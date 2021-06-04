@@ -18,6 +18,8 @@ public class ServiceRequestBean {
 
     private Date creationDate;
 
+    private Date closingDate;
+
     private UserBean user;
 
     public Long getId() {
@@ -74,6 +76,14 @@ public class ServiceRequestBean {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Date getClosingDate() {
+        return closingDate;
+    }
+
+    public void setClosingDate(Date closingDate) {
+        this.closingDate = closingDate;
     }
 
     public UserBean getUser() {

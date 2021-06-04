@@ -85,14 +85,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- 					Mes demandes -->
+                <!-- 					Mes demandes en cours -->
                 <div class="tab-pane fade" id="nav-service" role="tabpanel" aria-labelledby="nav-service-tab">
-                    <div class="col-md-12" th:if="${serviceRequestList==null or serviceRequestList.isEmpty()}">
+                    <div class="col-md-12" th:if="${filtredServiceList==null or filtredServiceList.isEmpty()}">
                         <br />
-                        <h3>Mes Services</h3>
+                        <h3>Mes Services en cours</h3>
                         <p>Vous n'avez aucune demande de service en cours</p>
                     </div>
-                    <div class="col-md-12" th:if="${serviceRequestList!=null and !serviceRequestList.isEmpty()}">
+                    <div class="col-md-12" th:if="${filtredServiceList!=null and !filtredServiceList.isEmpty()}">
                         <br />
                         <h3>Mes Demandes</h3>
                         <div class="table-responsive">
@@ -107,7 +107,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="service:${serviceRequestList}" th:if="${service.requestStatus != 'Terminé'}">
+                                <tr th:each="service:${filtredServiceList}" th:if="${service.requestStatus != 'Terminé'}">
                                     <th scope="row"><span th:text="${service.id}">#</span></th>
                                     <td><span th:text="${service.requestType}">Type</span></td>
                                     <td><span th:text="${service.requestStatus}">Statut</span></td>
@@ -120,14 +120,14 @@
                     </div>
                 </div>
 
-                <!-- 					Mes emprunts -->
+                <!-- 					Mes emprunts en cours -->
                 <div class="tab-pane fade" id="nav-loan" role="tabpanel" aria-labelledby="nav-loan-tab">
-                    <div class="col-md-12" th:if="${loanList==null or loanList.isEmpty()}">
+                    <div class="col-md-12" th:if="${filtredLoanList==null or filtredLoanList.isEmpty()}">
                         <br />
-                        <h3>Mes Emprunts</h3>
+                        <h3>Mes Emprunts en cours</h3>
                         <p>Vous n'avez aucun emprunt en cours</p>
                     </div>
-                    <div class="col-md-12" th:if="${loanList!=null and !loanList.isEmpty()}">
+                    <div class="col-md-12" th:if="${filtredLoanList!=null and !filtredLoanList.isEmpty()}">
                         <br />
                         <h3>Mes Emprunts en cours</h3>
                         <div class="table-responsive">
@@ -144,7 +144,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="loan:${loanList}" th:if="${loan.loanStatus != 'Terminé'}">
+                                <tr th:each="loan:${filtredLoanList}" th:if="${loan.loanStatus != 'Terminé'}">
                                     <th scope="row"><span th:text="${loan.id}">#</span></th>
                                     <td><span th:text="${loan.title}">Objet</span></td>
                                     <td><span th:text="${loan.loanStatus}">Statut</span></td>
@@ -182,7 +182,8 @@
                                     <th scope="col">Type</th>
                                     <th scope="col">Objet</th>
                                     <th scope="col">Statut</th>
-                                    <th scope="col">Date</th>
+                                    <th scope="col">Date de création</th>
+                                    <th scope="col">Date de cloture</th>
                                     <th scope="col">Voisin</th>
                                 </tr>
                                 </thead>
@@ -192,16 +193,18 @@
                                     <td><span th:text="'EMPRUNT n°' + ${loanList.indexOf(loan)+1}">Type</span></td>
                                     <td><span th:text="${loan.title}">Titre</span></td>
                                     <td><span th:text="${loan.loanStatus}">Statut</span></td>
-                                    <td><span th:text="${#dates.format(loan.startLoan, 'dd/MM/yyyy')}">Date</span></td>
-                                    <td><span th:text="${loan.ownerFullName}?:' - '">Nom Voisin</span></td>
+                                    <td><span th:text="${#dates.format(loan.startLoan, 'dd/MM/yyyy')}">Date creation</span></td>
+                                    <td><span th:text="${loan.returnLoan!=null} ? ${#dates.format(loan.returnLoan, 'dd/MM/yyyy')} : '----'">Date fermeture</span></td>
+                                    <td><span th:text="${loan.ownerFullName}?:'----'">Nom Voisin</span></td>
                                 </tr>
                                 <tr th:each="service:${serviceRequestList}">
                                     <th scope="row"><span th:text="${service.id}">#</span></th>
                                     <td><span th:text="'DEMANDE n°' + ${serviceRequestList.indexOf(service)+1}">Type</span></td>
                                     <td><span th:text="${service.requestType}">Type</span></td>
                                     <td><span th:text="${service.requestStatus}">Statut</span></td>
-                                    <td><span th:text="${#dates.format(service.creationDate, 'dd/MM/yyyy')}">Date</span></td>
-                                    <td><span th:text="${service.helper}?:' - '">Nom Voisin</span></td>
+                                    <td><span th:text="${#dates.format(service.creationDate, 'dd/MM/yyyy')}">Date creation</span></td>
+                                    <td><span th:text="${service.closingDate!=null} ? ${#dates.format(service.closingDate, 'dd/MM/yyyy')} : '----'">Date fermeture</span></td>
+                                    <td><span th:text="${service.helper}?:'----'">Nom Voisin</span></td>
                                 </tr>
                                 </tbody>
                             </table>

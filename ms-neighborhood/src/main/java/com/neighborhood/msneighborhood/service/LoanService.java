@@ -8,4 +8,5 @@ public interface LoanService {
 
     List<Loan> findLoansByUserId (Long userId);
 
+    Loan closeLoan(Long loanId);
 }

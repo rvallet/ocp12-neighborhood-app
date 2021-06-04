@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ServicesController {
@@ -75,7 +76,9 @@ public class ServicesController {
     public String closeLoan (
             @RequestParam(name="id_loan") Long loanId)
             {
-        LOGGER.info("loanId {}", loanId);
+        LOGGER.info("Envoie d'une demùande de fermeture de l'emprunt loanId {}", loanId);
+        microServiceNeighborhoodProxy.closeLoan(loanId);
+
         return "redirect:/user/profil#nav-loan";
     }
 }
