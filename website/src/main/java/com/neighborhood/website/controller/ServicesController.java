@@ -58,4 +58,16 @@ public class ServicesController {
 
         return "redirect:/services";
     }
+
+    @GetMapping(path = {"/validatedService"})
+    public String validatedService (
+            @RequestParam(name="id_service") Long serviceId,
+            @RequestParam(name="id_user") Long userId,
+            Model model
+    ) {
+        LOGGER.info("Envoie d'une demande de mise à jour du serviceId {} par l'utilisateurId {}", serviceId, userId);
+        microServiceNeighborhoodProxy.processServiceResponse(serviceId, userId);
+
+        return "redirect:/services";
+    }
 }

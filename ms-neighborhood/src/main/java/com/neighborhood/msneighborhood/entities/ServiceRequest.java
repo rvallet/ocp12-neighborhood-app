@@ -28,6 +28,8 @@ public class ServiceRequest implements Serializable {
 
     private String author;
 
+    private String helper;
+
     private Date creationDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -48,7 +50,7 @@ public class ServiceRequest implements Serializable {
         this.creationDate = new Date();
         this.requestType = ServiceRequestTypeEnum.MISCELLANEOUS_SERVICE.toString();
         this.requestStatus = RequestStatusEnum.IN_PROGRESS.toString();
-        this.author = user.getFirstName() + " " + user.getLastName();
+        this.author = user.getFullName();
         this.user = user;
     }
 
@@ -92,6 +94,14 @@ public class ServiceRequest implements Serializable {
         this.author = author;
     }
 
+    public String getHelper() {
+        return helper;
+    }
+
+    public void setHelper(String helper) {
+        this.helper = helper;
+    }
+
     public Date getCreationDate() {
         return creationDate;
     }
@@ -113,12 +123,11 @@ public class ServiceRequest implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServiceRequest that = (ServiceRequest) o;
-        return Objects.equals(id, that.id) && Objects.equals(requestType, that.requestType) && Objects.equals(description, that.description) && Objects.equals(requestStatus, that.requestStatus) && Objects.equals(creationDate, that.creationDate) && Objects.equals(user, that.user);
+        return Objects.equals(id, that.id) && Objects.equals(requestType, that.requestType) && Objects.equals(description, that.description) && Objects.equals(requestStatus, that.requestStatus) && Objects.equals(author, that.author) && Objects.equals(helper, that.helper) && Objects.equals(creationDate, that.creationDate) && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, requestType, description, requestStatus, creationDate, user);
+        return Objects.hash(id, requestType, description, requestStatus, author, helper, creationDate, user);
     }
-
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.Collection;
 import java.util.List;
 
 @FeignClient(name = "ms-neighborhood")
@@ -46,14 +45,19 @@ public interface MicroServiceNeighborhoodProxy {
     @PostMapping(value = "/createServiceRequest/{userId}")
     ServiceRequestBean createServiceRequest(@RequestBody ServiceRequestBean serviceRequest, @PathVariable Long userId);
 
-    @GetMapping(value = "getServiceRequestTypeList")
+    @GetMapping(value = "/getServiceRequestTypeList")
     List<String> getServiceRequestTypeList();
 
-    @GetMapping(value = "getServiceRequestListByNeighborgroupId/{groupId}")
+    @GetMapping(value = "/getServiceRequestListByNeighborgroupId/{groupId}")
     List<ServiceRequestBean> getServiceRequestListByNeighborgroupId(@PathVariable Long groupId);
+
+    @GetMapping(value = "/processServiceResponse/{serviceId}/{userId}")
+    ServiceRequestBean processServiceResponse(@PathVariable Long serviceId, @PathVariable Long userId);
 
     /* Loans */
     @GetMapping(value= "/findLoansListByUserId/{userId}")
     List<LoanBean> getLoansByUserId(@PathVariable Long userId);
+
+
 
 }
