@@ -1,5 +1,6 @@
 package com.neighborhood.msneighborhood.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.neighborhood.msneighborhood.enumerated.RequestStatusEnum;
@@ -25,12 +26,14 @@ public class ServiceRequest implements Serializable {
 
     private String requestStatus;
 
+    private String author;
+
     private Date creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIgnore
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonBackReference
     private User user;
 
     public ServiceRequest(){
@@ -45,6 +48,7 @@ public class ServiceRequest implements Serializable {
         this.creationDate = new Date();
         this.requestType = ServiceRequestTypeEnum.MISCELLANEOUS_SERVICE.toString();
         this.requestStatus = RequestStatusEnum.IN_PROGRESS.toString();
+        this.author = user.getFirstName() + " " + user.getLastName();
         this.user = user;
     }
 
@@ -78,6 +82,14 @@ public class ServiceRequest implements Serializable {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public Date getCreationDate() {

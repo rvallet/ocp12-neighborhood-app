@@ -14,6 +14,8 @@ public class ServiceRequestBean {
 
     private String requestStatus;
 
+    private String author;
+
     private Date creationDate;
 
     private UserBean user;
@@ -48,6 +50,14 @@ public class ServiceRequestBean {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public Date getCreationDate() {

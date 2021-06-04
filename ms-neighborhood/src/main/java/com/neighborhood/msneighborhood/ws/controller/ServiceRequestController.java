@@ -41,6 +41,7 @@ public class ServiceRequestController {
             serviceRequestToCreate.setUser(user);
             serviceRequestToCreate.setRequestType(serviceRequest.getRequestType());
             serviceRequestToCreate.setDescription(serviceRequest.getDescription());
+            serviceRequestToCreate.setAuthor(user.getFullName());
         } else {
             LOGGER.warn("Echec lors de la récupération de l'utilisateur id : {}", userId);
         }

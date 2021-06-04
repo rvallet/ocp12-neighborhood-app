@@ -67,7 +67,7 @@
       <br />
 
       <!-- Liste des demandes de services (Cards) -->
-<!--      <div th:if="${serviceList!=null and !serviceList.isEmpty()}">
+      <div th:if="${serviceList!=null and !serviceList.isEmpty()}">
         <br />
         <h3>Liste des demandes de Services</h3>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 row-cols-xl-5">
@@ -79,7 +79,7 @@
                   <p class="card-title text-center" th:text="${service.requestType}">Type</p>
                 </div>
                 <p class="card-text" th:text="${service.description}">Description</p>
-                <p class="text-muted"> Demandeur : <span th:text="${service.user.firstName}">Nom Voisin</span></p>
+                <p class="text-muted"> Demandeur : <span th:text="${service.author}">Nom Voisin</span></p>
                 <p class="card-text text-right"><small class="text-muted" th:text="'Demande du ' + ${#dates.format(service.creationDate, 'dd/MM/yyyy')}">Date de creation</small></p>
               </div>
               <div class="card-footer">
@@ -93,7 +93,7 @@
             </div>
           </div>
         </div>
-      </div>-->
+      </div>
 
     </div>
   </section>

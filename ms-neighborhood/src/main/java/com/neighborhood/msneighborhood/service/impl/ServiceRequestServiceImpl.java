@@ -50,7 +50,12 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
 
     @Override
     public List<ServiceRequest> findServiceRequestListByNeighborGroupId(Long groupId) {
-        return serviceRequestRepository.findServiceRequestsByNeighborGroupIdAndFilteredByStatusList(groupId, getActiveServiceStatusList());
+        List<ServiceRequest> serviceRequestList = serviceRequestRepository.findServiceRequestsByNeighborGroupIdAndFilteredByStatusList(groupId, getActiveServiceStatusList());
+        LOGGER.info(
+                "Envoi d'une liste de {} services pour le groupeId : {}",
+                serviceRequestList.size(),
+                groupId);
+        return serviceRequestList;
     }
 
     @Override

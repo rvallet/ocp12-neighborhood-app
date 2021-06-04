@@ -1,6 +1,7 @@
 package com.neighborhood.msneighborhood.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -54,8 +55,9 @@ public class User implements Serializable {
     private Collection<Loan> loanList;
 
     @OneToMany(mappedBy = "user")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    //@LazyCollection(LazyCollectionOption.FALSE)
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonManagedReference
     private Collection<ServiceRequest> serviceRequestList;
 
     public User() {
@@ -167,5 +169,9 @@ public class User implements Serializable {
 
     public void setServiceRequestList(Collection<ServiceRequest> serviceRequestList) {
         this.serviceRequestList = serviceRequestList;
+    }
+
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
     }
 }

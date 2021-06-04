@@ -52,7 +52,6 @@ public class ServicesController {
 
         ServiceRequestBean serviceRequest = new ServiceRequestBean();
         serviceRequest.setUser(user);
-        //TODO: Alimenter avec les champs renseignés
         serviceRequest.setRequestType(type);
         serviceRequest.setDescription(desc);
         microServiceNeighborhoodProxy.createServiceRequest(serviceRequest, user.getId());
