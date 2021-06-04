@@ -87,6 +87,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
                 User helpedUser = userRepository.findUserById(serviceRequest.getUser().getId());
                 Loan loan = new Loan(helpedUser);
                 loan.setTitle(serviceRequest.getDescription());
+                loan.setOwnerId(helperUser.getId());
                 LOGGER.info(
                         "Création d'un prêt (Emprunteur : {} - Propriétaire : {})",
                         helpedUser.getEmail(),

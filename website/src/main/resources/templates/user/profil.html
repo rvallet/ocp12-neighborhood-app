@@ -38,6 +38,11 @@
                        role="tab" aria-controls="nav-loan"
                        aria-selected="false">Mes Emprunts en cours
                     </a>
+                    <a class="nav-item nav-link" id="nav-service-tab"
+                       data-toggle="tab" href="#nav-service"
+                       role="tab" aria-controls="nav-service"
+                       aria-selected="false">Mes Demandes en cours
+                    </a>
                     <a class="nav-item nav-link" id="nav-history-tab"
                        data-toggle="tab" href="#nav-history"
                        role="tab" aria-controls="nav-history"
@@ -80,6 +85,40 @@
                         </div>
                     </div>
                 </div>
+                <!-- 					Mes demandes -->
+                <div class="tab-pane fade" id="nav-service" role="tabpanel" aria-labelledby="nav-service-tab">
+                    <div class="col-md-12" th:if="${serviceRequestList==null or serviceRequestList.isEmpty()}">
+                        <br />
+                        <h3>Mes Services</h3>
+                        <p>Vous n'avez aucune demande de service en cours</p>
+                    </div>
+                    <div class="col-md-12" th:if="${serviceRequestList!=null and !serviceRequestList.isEmpty()}">
+                        <br />
+                        <h3>Mes Demandes</h3>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Date de la demande</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="service:${serviceRequestList}" th:if="${service.requestStatus != 'Terminé'}">
+                                    <th scope="row"><span th:text="${service.id}">#</span></th>
+                                    <td><span th:text="${service.requestType}">Type</span></td>
+                                    <td><span th:text="${service.requestStatus}">Statut</span></td>
+                                    <td><span th:text="${#dates.format(service.creationDate, 'dd/MM/yyyy')}">Date de la demande</span></td>
+                                    <td><span th:text="${service.description}">Description</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 					Mes emprunts -->
                 <div class="tab-pane fade" id="nav-loan" role="tabpanel" aria-labelledby="nav-loan-tab">
@@ -116,14 +155,14 @@
                     </div>
                 </div>
 
-                <!-- 					Mon Historique d'emprunts -->
+                <!-- 					Mon Historique -->
                 <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
-                    <div class="col-md-12" th:if="${loanList==null or loanList.isEmpty()}">
+                    <div class="col-md-12" th:if="${(loanList==null or loanList.isEmpty()) and (serviceRequestList==null or serviceRequestList.isEmpty())}">
                         <br />
                         <h3>Mon historique</h3>
-                        <p>Vous n'avez aucun emprunt en cours</p>
+                        <p>Vous n'avez aucune donnée dans votre historique</p>
                     </div>
-                    <div class="col-md-12" th:if="${loanList!=null and !loanList.isEmpty()}">
+                    <div class="col-md-12" th:if="${(loanList!=null and !loanList.isEmpty()) or (serviceRequestList!=null and !serviceRequestList.isEmpty())}">
                         <br />
                         <h3>Mon historique</h3>
                         <div class="table-responsive">
@@ -133,7 +172,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Objet</th>
                                     <th scope="col">Statut</th>
-                                    <th scope="col">Date de l'emprunt</th>
+                                    <th scope="col">Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -141,7 +180,13 @@
                                     <th scope="row"><span th:text="${loan.id}">#</span></th>
                                     <td><span th:text="${loan.title}">Titre</span></td>
                                     <td><span th:text="${loan.loanStatus}">Statut</span></td>
-                                    <td><span th:text="${#dates.format(loan.startLoan, 'dd/MM/yyyy')}">Date de l'emprunt</span></td>
+                                    <td><span th:text="${#dates.format(loan.startLoan, 'dd/MM/yyyy')}">Date</span></td>
+                                </tr>
+                                <tr th:each="service:${serviceRequestList}">
+                                    <th scope="row"><span th:text="${service.id}">#</span></th>
+                                    <td><span th:text="${service.requestType}">Titre</span></td>
+                                    <td><span th:text="${service.requestStatus}">Statut</span></td>
+                                    <td><span th:text="${#dates.format(service.creationDate, 'dd/MM/yyyy')}">Date</span></td>
                                 </tr>
                                 </tbody>
                             </table>

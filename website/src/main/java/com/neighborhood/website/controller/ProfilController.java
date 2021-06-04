@@ -1,6 +1,7 @@
 package com.neighborhood.website.controller;
 
 import com.neighborhood.website.beans.LoanBean;
+import com.neighborhood.website.beans.ServiceRequestBean;
 import com.neighborhood.website.beans.UserBean;
 import com.neighborhood.website.proxies.MicroServiceNeighborhoodProxy;
 import org.slf4j.Logger;
@@ -29,6 +30,9 @@ public class ProfilController {
 
         List<LoanBean> loanList = microServiceNeighborhoodProxy.getLoansByUserId(u.getId());
         model.addAttribute("loanList" , loanList);
+
+        List<ServiceRequestBean> serviceRequestList = (List<ServiceRequestBean>) u.getServiceRequestList();
+        model.addAttribute("serviceRequestList" , serviceRequestList);
 
         LOGGER.info(
                 "Récupération d'une liste de {} emprunts pour l'utilisateur id {}",

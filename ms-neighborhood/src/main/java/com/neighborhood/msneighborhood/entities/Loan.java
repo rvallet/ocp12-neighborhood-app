@@ -28,6 +28,8 @@ public class Loan implements Serializable {
 
     private String loanStatus;
 
+    private Long ownerId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -94,6 +96,14 @@ public class Loan implements Serializable {
         this.loanStatus = loanStatus;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
     public User getUser() {
         return user;
     }
@@ -112,19 +122,6 @@ public class Loan implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, startLoan, endLoan, returnLoan, loanStatus, user);
-    }
-
-    @Override
-    public String toString() {
-        return "Loan{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", startLoan=" + startLoan +
-                ", endLoan=" + endLoan +
-                ", returnLoan=" + returnLoan +
-                ", loanStatus='" + loanStatus + '\'' +
-                ", user=" + user +
-                '}';
+        return Objects.hash(id, title, startLoan, endLoan, returnLoan, loanStatus, ownerId, user);
     }
 }
