@@ -8,13 +8,13 @@
 
 <head th:insert="base :: head"></head>
 <head>
-  <title>Site de bon voisinage - Neighborhood </title>
-  <meta name="description" content="Page d'identification des utilisateurs - Neighborhood"/>
+  <title>Mes voisins - Neighborhood </title>
+  <meta name="description" content="Mes voisins - Neighborhood"/>
 </head>
 <body>
 <th:block th:insert="base :: header">...</th:block>
 <main layout:fragment="main" role="main" th:remove="tag">
-  <section id="Identification">
+  <section id="Voisins">
     <!--      Contenu Utilisateur Non-authentifié-->
     <div class="container" sec:authorize="!isAuthenticated()">
       <br \>
