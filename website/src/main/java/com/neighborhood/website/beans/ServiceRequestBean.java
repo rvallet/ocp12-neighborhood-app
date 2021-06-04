@@ -12,6 +12,8 @@ public class ServiceRequestBean {
 
     private String requestStatus;
 
+    private Long ownerId;
+
     private String author;
 
     private String helper;
@@ -52,6 +54,14 @@ public class ServiceRequestBean {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getAuthor() {

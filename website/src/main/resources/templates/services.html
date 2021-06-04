@@ -66,7 +66,7 @@
         <br />
         <h3>Liste des demandes de Services</h3>
         <br />
-        <p>Il n'y a aucune demandes active sur votre groupe de voisins</p>
+        <p>Il n'y a aucune demande active sur votre groupe de voisins</p>
       </div>
 
       <!-- Liste des demandes de services (Cards) -->
@@ -89,7 +89,7 @@
                 <form th:action="@{validatedService}" sec:authorize="isAuthenticated()" method="get">
                   <input type="hidden" name="id_service" th:value="${service.id}"/>
                   <input type="hidden" name="id_user" th:value="${user.id}"/>
-                  <button type="submit" class="btn btn-secondary btn-block">
+                  <button type="submit" class="btn btn-secondary btn-block" th:disabled="${service.ownerId eq user.id}">
                     Se proposer
                   </button>
                 </form>

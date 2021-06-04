@@ -26,6 +26,8 @@ public class ServiceRequest implements Serializable {
 
     private String requestStatus;
 
+    private Long ownerId;
+
     private String author;
 
     private String helper;
@@ -52,6 +54,7 @@ public class ServiceRequest implements Serializable {
         this.creationDate = new Date();
         this.requestType = ServiceRequestTypeEnum.MISCELLANEOUS_SERVICE.toString();
         this.requestStatus = RequestStatusEnum.IN_PROGRESS.toString();
+        this.ownerId = user.getId();
         this.author = user.getFullName();
         this.user = user;
     }
@@ -86,6 +89,14 @@ public class ServiceRequest implements Serializable {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getAuthor() {
