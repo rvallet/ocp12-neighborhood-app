@@ -28,6 +28,13 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
+    public List<Loan> getLoansList() {
+        List<Loan> loansList = loanRepository.findAll();
+        LOGGER.info("Envoie d'une liste de {} emprunts.", loansList.size());
+        return loansList;
+    }
+
+    @Override
     public Loan closeLoan(Long loanId) {
         Loan loan = loanRepository.findLoanById(loanId);
         loan.setReturnLoan(new Date());

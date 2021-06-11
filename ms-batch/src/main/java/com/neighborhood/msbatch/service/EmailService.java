@@ -6,4 +6,5 @@ public interface EmailService {
 
     void sendEmail(Mail email);
 
+    void sendLoanReminderEmail();
 }

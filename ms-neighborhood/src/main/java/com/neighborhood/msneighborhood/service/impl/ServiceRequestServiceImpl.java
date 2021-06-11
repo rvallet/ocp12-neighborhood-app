@@ -89,6 +89,7 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
                 loan.setTitle(serviceRequest.getDescription());
                 loan.setOwnerId(helperUser.getId());
                 loan.setOwnerFullName(helperUser.getFullName());
+                loan.setUserId(serviceRequest.getOwnerId());
                 LOGGER.info(
                         "Création d'un prêt (Emprunteur : {} - Propriétaire : {})",
                         helpedUser.getEmail(),

@@ -33,6 +33,8 @@ public class Loan implements Serializable {
 
     private Long ownerId;
 
+    private Long userId;
+
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -114,6 +116,14 @@ public class Loan implements Serializable {
 
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public User getUser() {
