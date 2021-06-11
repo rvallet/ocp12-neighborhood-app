@@ -35,10 +35,12 @@ spring.datasource.password=admin
 - Importer le projet complet ocp12-neighborhood-app dans votre IDE Java (nécessite la présence d'un module Sprint Boot, présente par défaut dans IntelliJ ou Eclipse Sprint Tools Suite 4 "STS4")
 - Démarrer le service cloud-config (port 8888)
 - Démarrer le service eureka-server (port 9102)
-- Lancer les microservices ms-neighborhood (ports 9090 & 9092).
-  Plusieurs instances possibles, ex : ajouter 'VM options = -Dserver.port=XXXX')
+- Démarrer les microservices 
+  ms-neighborhood (ports 9090 & 9092).
+  ms-batch (ports 9095 & 9097).
+  Plusieurs instances possibles, ex : ajouter 'VM options = -Dserver.port=XXXX'). Mettre à jour la configuration Ribbon sur les fichiers pour ajouter plus des instances si nécessaire.
 - Au premier démarrage les microservice vont créer les table de la BDD 'neighborhood_bdd' ainsi qu'un jeu de données de tests sur la table 'utilisateur' (supprimer les tables pour régénérer le jeu de données)
-- Lancer le website
+- Lancer le website (port 8090)
 
 ####Notes
 

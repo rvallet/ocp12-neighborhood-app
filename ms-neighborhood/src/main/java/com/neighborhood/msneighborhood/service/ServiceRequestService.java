@@ -15,4 +15,6 @@ public interface ServiceRequestService {
     List<ServiceRequest> findServiceRequestListByNeighborGroupId(Long groupId);
 
     List<String> getActiveServiceStatusList();
+
+    ServiceRequest processServiceResponse(Long serviceId, Long userId);
 }

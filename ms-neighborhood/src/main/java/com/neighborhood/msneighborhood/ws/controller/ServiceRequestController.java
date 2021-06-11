@@ -1,7 +1,6 @@
 package com.neighborhood.msneighborhood.ws.controller;
 
 import com.neighborhood.msneighborhood.api.ApiRegistration;
-import com.neighborhood.msneighborhood.entities.Loan;
 import com.neighborhood.msneighborhood.entities.ServiceRequest;
 import com.neighborhood.msneighborhood.entities.User;
 import com.neighborhood.msneighborhood.service.ServiceRequestService;
@@ -42,6 +41,7 @@ public class ServiceRequestController {
             serviceRequestToCreate.setRequestType(serviceRequest.getRequestType());
             serviceRequestToCreate.setDescription(serviceRequest.getDescription());
             serviceRequestToCreate.setAuthor(user.getFullName());
+            serviceRequestToCreate.setOwnerId(user.getId());
         } else {
             LOGGER.warn("Echec lors de la récupération de l'utilisateur id : {}", userId);
         }
@@ -57,4 +57,13 @@ public class ServiceRequestController {
     public List<ServiceRequest> findServiceRequestListByNeighborGroupId (@PathVariable Long groupId) {
         return requestService.findServiceRequestListByNeighborGroupId(groupId);
     }
+
+    @GetMapping(value = ApiRegistration.REST_GET_PROCESS_SERVICE_RESPONSE + "/{serviceId}" + "/{userId}")
+    public ServiceRequest processServiceResponse(@PathVariable Long serviceId, @PathVariable Long userId) {
+        LOGGER.debug("reception d'une demande de mise à jour de service (serviceId {}, userId {}", serviceId, userId);
+        return requestService.processServiceResponse(serviceId, userId);
+    }
+
+
+
 }
