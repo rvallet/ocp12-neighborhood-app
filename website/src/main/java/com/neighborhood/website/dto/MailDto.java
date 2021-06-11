@@ -6,11 +6,11 @@ import javax.validation.constraints.Size;
 public class MailDto {
 
     @NotEmpty(message = "L'objet du message est obligatoire")
-    @Size(min = 5, max = 75)
+    @Size(min = 1, max = 75)
     private String objet;
 
     @NotEmpty(message = "Le contenus du message est obligatoire")
-    @Size(min = 5, max = 1000)
+    @Size(min = 1, max = 1000)
     private String content;
 
     private String from;
