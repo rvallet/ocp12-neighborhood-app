@@ -22,6 +22,9 @@ public interface MicroServiceNeighborhoodProxy {
     @GetMapping(value= "/users")
     List<UserBean> getUsers();
 
+    @GetMapping(value = "/getUserById/{userId}")
+    UserBean getUserById(@PathVariable Long userId);
+
     @GetMapping(value= "/users/page/{pageNumber}/{pageSize}")
     Page<UserBean> getPaginatedUsers(@PathVariable int pageNumber, @PathVariable int pageSize);
 

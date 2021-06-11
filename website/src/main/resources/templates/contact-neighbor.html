@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{base}">
+
+<head th:insert="base :: head"></head>
+<head>
+  <title>Contacter un voisin - Neighborhood </title>
+  <meta name="description" content="Les Services - Neighborhood"/>
+</head>
+<body>
+<th:block th:insert="base :: header">...</th:block>
+<main layout:fragment="main" role="main" th:remove="tag">
+  <section id="Contact">
+    <div class="container">
+      <br />
+      <h2>Formulaire de contact</h2>
+      <br />
+
+      <div class="container" sec:authorize="isAuthenticated()">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col-6">
+            <form th:action="@{send-mail}" th:object="${email}" method="post">
+
+              <p class="error-message" th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error</p>
+              <br />
+              <div class="form-group" th:classappend="${#fields.hasErrors('objet')}? 'has-error':''">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Objet </span>
+                  </div>
+                  <input id="title" class="form-control"
+                         type="text" th:field="*{objet}"
+                         name="title" th:value="${email.objet}"
+                         placeholder="Objet de votre e-mail" autofocus="autofocus" required />
+                  <p class="error-message" th:each="error : ${#fields.errors('objet')}" th:text="${error}">Validation error</p>
+
+                </div>
+              </div>
+              <div class="form-group" th:classappend="${#fields.hasErrors('content')}? 'has-error':''">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Message </span>
+                  </div>
+                  <textarea id="content" class="form-control"
+                            th:field="*{content}"
+                            name="content" th:value="${email.content}"
+                            placeholder="Contenu de votre e-mail" required>
+													</textarea>
+                  <p class="error-message" th:each="error : ${#fields.errors('content')}" th:text="${error}">Validation error</p>
+                </div>
+              </div>
+              <input type="hidden" name="from" th:value="${user.email}"/>
+              <input type="hidden" name="to" th:value="${neighbor.email}"/>
+              <input type="hidden" name="id_user" th:value="${user.id}"/>
+              <input type="hidden" name="id_neighbor" th:value="${neighbor.id}"/>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Envoyer</button>
+              </div>
+            </form>
+          </div>
+          <div class="col"></div>
+        </div>
+
+
+    </div>
+  </section>
+</main>
+<th:block th:insert="base :: footer">...</th:block>
+<th:block th:insert="base :: script">...</th:block>
+</body>
+</html>
