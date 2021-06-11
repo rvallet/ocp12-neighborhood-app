@@ -1,7 +1,5 @@
 package com.neighborhood.website.beans;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.Date;
 
 public class ServiceRequestBean {
@@ -14,9 +12,15 @@ public class ServiceRequestBean {
 
     private String requestStatus;
 
+    private Long ownerId;
+
     private String author;
 
+    private String helper;
+
     private Date creationDate;
+
+    private Date closingDate;
 
     private UserBean user;
 
@@ -52,6 +56,14 @@ public class ServiceRequestBean {
         this.requestStatus = requestStatus;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -60,12 +72,28 @@ public class ServiceRequestBean {
         this.author = author;
     }
 
+    public String getHelper() {
+        return helper;
+    }
+
+    public void setHelper(String helper) {
+        this.helper = helper;
+    }
+
     public Date getCreationDate() {
         return creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Date getClosingDate() {
+        return closingDate;
+    }
+
+    public void setClosingDate(Date closingDate) {
+        this.closingDate = closingDate;
     }
 
     public UserBean getUser() {
