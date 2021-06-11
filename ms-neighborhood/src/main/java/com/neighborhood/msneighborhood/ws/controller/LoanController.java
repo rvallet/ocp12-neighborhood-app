@@ -29,4 +29,10 @@ public class LoanController {
         return loanList;
     }
 
+    @GetMapping(value = ApiRegistration.REST_GET_CLOSE_LOAN + "/{loanId}")
+    public Loan closeLoan(@PathVariable Long loanId) {
+        LOGGER.info("Reception d'une demande de clotûre de l'emprunt id {}", loanId);
+        return loanService.closeLoan(loanId);
+    }
+
 }

@@ -17,6 +17,7 @@ public interface ApiRegistration {
 
     /* Loans */
     String REST_LOANS_LIST_BY_USER_ID = "/findLoansListByUserId";
+    String REST_GET_CLOSE_LOAN = "/closeLoan";
 
     /* Services */
     String REST_SERVICES = "/services";
@@ -24,4 +25,5 @@ public interface ApiRegistration {
     String REST_CREATE_SERVICE_REQUEST = "/createServiceRequest";
     String REST_GET_SERVICE_REQUEST_TYPE = "/getServiceRequestTypeList";
     String REST_GET_SERVICE_REQUEST_LIST_BY_GROUP_ID = "/getServiceRequestListByNeighborgroupId";
+    String REST_GET_PROCESS_SERVICE_RESPONSE = "/processServiceResponse";
 }

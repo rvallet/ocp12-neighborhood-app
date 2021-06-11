@@ -17,11 +17,11 @@
   <section id="Services">
     <div class="container">
       <br />
-      <h3>Les Services</h3>
+      <h2>Les Services</h2>
       <br />
 
       <!-- Ajouter une demande de service -->
-      <h2>Demander un service</h2>
+      <h3>Demander un service</h3>
       <div class="container">
         <div class="row">
           <div class="col"></div>
@@ -61,10 +61,13 @@
         </div>
       </div>
 
-      <!-- Liste des demandes de services -->
-      <br />
-      <h2>Liste des demandes de Services</h2>
-      <br />
+      <!-- Liste des demandes de services (empty) -->
+      <div th:if="${serviceList==null or serviceList.isEmpty()}">
+        <br />
+        <h3>Liste des demandes de Services</h3>
+        <br />
+        <p>Il n'y a aucune demande active sur votre groupe de voisins</p>
+      </div>
 
       <!-- Liste des demandes de services (Cards) -->
       <div th:if="${serviceList!=null and !serviceList.isEmpty()}">
@@ -85,7 +88,8 @@
               <div class="card-footer">
                 <form th:action="@{validatedService}" sec:authorize="isAuthenticated()" method="get">
                   <input type="hidden" name="id_service" th:value="${service.id}"/>
-                  <button type="submit" class="btn btn-secondary btn-block">
+                  <input type="hidden" name="id_user" th:value="${user.id}"/>
+                  <button type="submit" class="btn btn-secondary btn-block" th:disabled="${service.ownerId eq user.id}">
                     Se proposer
                   </button>
                 </form>

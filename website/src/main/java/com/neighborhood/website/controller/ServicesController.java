@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ServicesController {
@@ -57,5 +58,27 @@ public class ServicesController {
         microServiceNeighborhoodProxy.createServiceRequest(serviceRequest, user.getId());
 
         return "redirect:/services";
+    }
+
+    @GetMapping(path = {"/validatedService"})
+    public String validatedService (
+            @RequestParam(name="id_service") Long serviceId,
+            @RequestParam(name="id_user") Long userId,
+            Model model
+    ) {
+        LOGGER.info("Envoie d'une demande de mise à jour du serviceId {} par l'utilisateurId {}", serviceId, userId);
+        microServiceNeighborhoodProxy.processServiceResponse(serviceId, userId);
+
+        return "redirect:/services";
+    }
+
+    @GetMapping(path = {"/user/close-loan"})
+    public String closeLoan (
+            @RequestParam(name="id_loan") Long loanId)
+            {
+        LOGGER.info("Envoie d'une demùande de fermeture de l'emprunt loanId {}", loanId);
+        microServiceNeighborhoodProxy.closeLoan(loanId);
+
+        return "redirect:/user/profil#nav-loan";
     }
 }

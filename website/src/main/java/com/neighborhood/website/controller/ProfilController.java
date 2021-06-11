@@ -1,6 +1,7 @@
 package com.neighborhood.website.controller;
 
 import com.neighborhood.website.beans.LoanBean;
+import com.neighborhood.website.beans.ServiceRequestBean;
 import com.neighborhood.website.beans.UserBean;
 import com.neighborhood.website.proxies.MicroServiceNeighborhoodProxy;
 import org.slf4j.Logger;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProfilController {
@@ -29,6 +32,15 @@ public class ProfilController {
 
         List<LoanBean> loanList = microServiceNeighborhoodProxy.getLoansByUserId(u.getId());
         model.addAttribute("loanList" , loanList);
+
+        List<LoanBean> filtredLoanList = loanList.stream().filter(e -> e.getLoanStatus().equalsIgnoreCase("En cours")).collect(Collectors.toList());
+        model.addAttribute("filtredLoanList", filtredLoanList);
+
+        List<ServiceRequestBean> serviceRequestList = (List<ServiceRequestBean>) u.getServiceRequestList();
+        model.addAttribute("serviceRequestList" , serviceRequestList);
+
+        List<ServiceRequestBean> filtredServiceList = serviceRequestList.stream().filter(e -> e.getRequestStatus().equalsIgnoreCase("En cours")).collect(Collectors.toList());
+        model.addAttribute("filtredServiceList", filtredServiceList);
 
         LOGGER.info(
                 "Récupération d'une liste de {} emprunts pour l'utilisateur id {}",
