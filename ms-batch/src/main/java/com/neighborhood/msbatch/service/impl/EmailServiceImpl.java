@@ -7,6 +7,7 @@ import com.neighborhood.msbatch.pojo.Mail;
 import com.neighborhood.msbatch.service.EmailService;
 import com.neighborhood.msbatch.service.LoanEmailReminderService;
 import com.neighborhood.msbatch.utils.DateTools;
+import javassist.Loader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,6 @@ public class EmailServiceImpl implements EmailService {
         if (!CollectionUtils.isEmpty(loanEmailReminderList)) {
             for (LoanEmailReminder loanEmailReminder : loanEmailReminderList) {
 
-                //TODO : format and send mail
                 String text = String.format(
                         emailConfig.getLoanTemplate().getText(),
                         loanEmailReminder.getUserLastname(),
@@ -75,12 +75,18 @@ public class EmailServiceImpl implements EmailService {
                         loanEmailReminder.getLoanTitle()
                         );
 
-                Mail email = new Mail();
-                email.setFrom("neighbor@neighbor.com");
-                email.setTo(loanEmailReminder.getUserEmail());
-                email.setContent(text);
+                SimpleMailMessage message = emailConfig.getLoanTemplate();
 
-                sendEmail(email);
+                Mail email = new Mail();
+                message.setFrom("neighbor@neighbor.com");
+                message.setTo(loanEmailReminder.getUserEmail());
+                message.setText(text);
+
+                try {
+                    javaMailSender.send(message);
+                } catch (Exception e) {
+                    LOGGER.warn(e.getMessage());
+                }
 
                 loanEmailReminder.setEmailSent(true);
                 loanEmailReminder.setSendingEmailDate(new Date());
