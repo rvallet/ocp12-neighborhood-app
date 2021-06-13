@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,12 +42,11 @@ public class LoanEmailReminderServiceImpl implements LoanEmailReminderService {
         if (!CollectionUtils.isEmpty(loanBeanList)) {
             List<LoanBean> todayLoanList = loanBeanList.stream()
                     .filter(b -> !b.getLoanStatus().equalsIgnoreCase("Terminé"))
+                    .filter(b -> b.getEndLoan().before(new Date()))
                     .filter(b -> checkIfLoanReminderShouldBeCreated(b))
                     .collect(Collectors.toList());
 
             LOGGER.info("Filtered loanList : {}", todayLoanList.size());
-
-            // TODO : getUser here
 
             todayLoanList.forEach(e -> {
                 UserBean user = microServiceNeighborhoodProxy.getUserById(e.getUserId());
@@ -79,7 +79,7 @@ public class LoanEmailReminderServiceImpl implements LoanEmailReminderService {
 
     @Override
     public List<LoanEmailReminder> findLoanEmailRemindersByIsEmailSentIsNot(Boolean isEmailSent) {
-        return loanEmailReminderRepository.findLoanEmailReminderByEmailSentIsNot(isEmailSent);
+        return loanEmailReminderRepository.findLoanEmailRemindersByIsEmailSentIsNot(isEmailSent);
     }
 
     @Override

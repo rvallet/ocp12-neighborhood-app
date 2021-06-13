@@ -11,8 +11,8 @@ public interface LoanEmailReminderRepository extends JpaRepository<LoanEmailRemi
     List<LoanEmailReminder> findAll();
     LoanEmailReminder findLoanEmailReminderById(Long id);
 
-    @Query("SELECT ler FROM LoanEmailReminder ler WHERE ler.isEmailSent NOT IN (:isEmailSent)")
-    List<LoanEmailReminder> findLoanEmailReminderByEmailSentIsNot(Boolean isEmailSent);
+    @Query("SELECT l FROM LoanEmailReminder l WHERE l.isEmailSent IS NULL OR l.isEmailSent NOT IN (:isEmailSent)")
+    List<LoanEmailReminder> findLoanEmailRemindersByIsEmailSentIsNot(Boolean isEmailSent);
 
     List<LoanEmailReminder> findLoanEmailRemindersByLoanIdIs(Long loanId);
 
