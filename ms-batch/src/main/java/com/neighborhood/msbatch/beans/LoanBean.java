@@ -1,4 +1,4 @@
-package com.neighborhood.website.beans;
+package com.neighborhood.msbatch.beans;
 
 import java.util.Date;
 

@@ -21,12 +21,20 @@ public class LoanController {
     @Autowired
     LoanService loanService;
 
-    @GetMapping(value= ApiRegistration.REST_LOANS_LIST_BY_USER_ID + "/{userId}")
+    @GetMapping(value= ApiRegistration.REST_GET_LOANS_LIST_BY_USER_ID + "/{userId}")
     public List<Loan> findLoansListByUserId(@PathVariable String userId) throws NoSuchResultException {
         LOGGER.debug("findLoansListByUserId for userId = {}", userId);
         List<Loan> loanList = loanService.findLoansByUserId(Long.parseLong(userId));
         LOGGER.info("Envoi d'une liste de {} emprunts", loanList.size());
         return loanList;
+    }
+
+    @GetMapping(value= ApiRegistration.REST_GET_LOANS_LIST)
+    public List<Loan> getLoansList() throws NoSuchResultException {
+        LOGGER.debug("getLoansList()");
+        List<Loan> loansList = loanService.getLoansList();
+        LOGGER.info("Envoi d'une liste de {} emprunts", loansList.size());
+        return loansList;
     }
 
     @GetMapping(value = ApiRegistration.REST_GET_CLOSE_LOAN + "/{loanId}")
