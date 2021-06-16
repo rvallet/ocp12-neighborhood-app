@@ -40,6 +40,7 @@ public class ServiceRequestController {
             serviceRequestToCreate.setUser(user);
             serviceRequestToCreate.setRequestType(serviceRequest.getRequestType());
             serviceRequestToCreate.setDescription(serviceRequest.getDescription());
+            serviceRequestToCreate.setImgPathThAttribute(serviceRequest.getImgPathThAttribute());
             serviceRequestToCreate.setAuthor(user.getFullName());
             serviceRequestToCreate.setOwnerId(user.getId());
         } else {

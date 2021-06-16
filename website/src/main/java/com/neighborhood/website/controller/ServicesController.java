@@ -9,10 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,8 +52,9 @@ public class ServicesController {
 
     @PostMapping(path= {"/services/create-serviceRequest"})
     public String createServiceRequest (
-            @RequestParam(name="type") String type,
-            @RequestParam(name="desc") String desc,
+            @RequestParam(name = "type") String type,
+            @RequestParam(name = "desc") String desc,
+            @RequestParam(name = "file", required = false) MultipartFile file,
             Model model) {
         LOGGER.info("Création d'une demande de service");
         UserBean user = microServiceNeighborhoodProxy.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -55,6 +63,22 @@ public class ServicesController {
         serviceRequest.setUser(user);
         serviceRequest.setRequestType(type);
         serviceRequest.setDescription(desc);
+
+        if(!file.isEmpty()) {
+            // FileName normalize and store
+            final String UPLOAD_DIR = "website/src/main/resources/static/img/upload/";
+            final String TH_IMG_ROOT_PATH = "/img/upload/";
+            String fileName = "service_"+System.currentTimeMillis()+"_"+ StringUtils.cleanPath(file.getOriginalFilename());
+            try {
+                Path path = Paths.get(UPLOAD_DIR + fileName);
+                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                serviceRequest.setImgPathThAttribute(TH_IMG_ROOT_PATH+fileName);
+            } catch (IOException e) {
+                LOGGER.debug("SERVICE -> {} upload failed copy into {}", fileName, UPLOAD_DIR);
+                LOGGER.warn(e.getMessage());
+            }
+        }
+        LOGGER.info("L'utilisateur {} à créer une demande de service (IMG : {})", user.getEmail(), serviceRequest.getImgPathThAttribute());
         microServiceNeighborhoodProxy.createServiceRequest(serviceRequest, user.getId());
 
         return "redirect:/services";
