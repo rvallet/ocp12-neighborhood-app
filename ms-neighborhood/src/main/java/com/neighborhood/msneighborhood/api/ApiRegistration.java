@@ -27,4 +27,9 @@ public interface ApiRegistration {
     String REST_GET_SERVICE_REQUEST_TYPE = "/getServiceRequestTypeList";
     String REST_GET_SERVICE_REQUEST_LIST_BY_GROUP_ID = "/getServiceRequestListByNeighborgroupId";
     String REST_GET_PROCESS_SERVICE_RESPONSE = "/processServiceResponse";
+
+    /* GroupBuyings */
+    String REST_UPDATE_GROUP_BUYING = "/updateGroupBuying";
+    String REST_GET_GROUP_BUYINGS_LIST = "/getGroupBuyingsList";
+    String REST_GET_CLOSE_GROUP_BUYING = "/closeGroupBuying";
 }
