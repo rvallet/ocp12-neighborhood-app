@@ -10,4 +10,8 @@ public interface ApiRegistration {
     /* EMAIL */
     String REST_SEND_EMAIL = "/sendMail";
 
+    /* JOBS */
+    String FEED_LOAN_EMAIL_REMINDER_DB = "/launchLoanEmailReminder";
+    String LAUNCH_LOAN_EMAIL_REMINDER = "/feedLoanEmailReminderRepository";
+
 }

@@ -44,4 +44,17 @@ public class EmailConfig {
         return message;
     }
 
+    @Bean
+    public SimpleMailMessage getLoanTemplate() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setText(
+                applicationPropertiesConfig.getLoanTemplate()
+        );
+
+        message.setSubject(applicationPropertiesConfig.getLoanObject());
+        message.setReplyTo("noreply@neighborhood.com");
+        message.setFrom("noreply@neighborhood.com");
+        return message;
+    }
+
 }
