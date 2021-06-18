@@ -69,10 +69,19 @@ public interface MicroServiceNeighborhoodProxy {
     @GetMapping(value= "/getGroupBuyingsList")
     List<GroupBuyingBean> getGroupBuyingsList();
 
+    @GetMapping(value= "/getGroupBuyingById/{groupBuyingId}")
+    GroupBuyingBean getGroupBuyingById(@PathVariable Long groupBuyingId);
+
+    @GetMapping(value= "/getCurrentGroupBuyingsList")
+    List<GroupBuyingBean> getCurrentGroupBuyingsList();
+
     @GetMapping(value = "/updateGroupBuying/{groupBuyingId}/{userId}")
     GroupBuyingBean updateGroupBuying(@PathVariable Long groupBuyingId, @PathVariable Long userId);
 
     @GetMapping(value = "/closeGroupBuying/{groupBuyingId}")
     GroupBuyingBean closeGroupBuying(@PathVariable Long groupBuyingId);
+
+    @GetMapping(value = "/archiveGroupBuying/{groupBuyingId}")
+    GroupBuyingBean archiveGroupBuying(@PathVariable Long groupBuyingId);
 
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -146,12 +147,39 @@ public class ServicesController {
         return "redirect:/group-buying";
     }
 
+    @GetMapping(path= {"/group-buying-user-list"})
+    public String groupBuyingGetUserList (
+            @RequestParam(name = "id") Long groupBuyId,
+            Model model) {
+        LOGGER.info("Affichage de la liste des participants à l'achat groué Id {}", groupBuyId);
+        List<UserBean> groupBuyingUserList = new ArrayList<>();
+        GroupBuyingBean groupBuying = microServiceNeighborhoodProxy.getGroupBuyingById(groupBuyId);
+
+        if (groupBuying!=null && !CollectionUtils.isEmpty(groupBuying.getUserList())) {
+            groupBuyingUserList.addAll(groupBuying.getUserList());
+        }
+
+        model.addAttribute("groupBuyingUserList", groupBuyingUserList);
+        model.addAttribute("groupBuying", groupBuying);
+
+        return "group-buying-user-list";
+    }
+
     @GetMapping(path= {"/group-buying/close"})
     public String closeGroupBuying (
             @RequestParam(name = "id_groupBuy") Long groupBuyId,
             Model model) {
         LOGGER.info("Clôture de l'achat groupé id {}", groupBuyId);
         microServiceNeighborhoodProxy.closeGroupBuying(groupBuyId);
+        return "redirect:/user/profil#nav-groupbuying";
+    }
+
+    @GetMapping(path= {"/group-buying/archive"})
+    public String archiveGroupBuying (
+            @RequestParam(name = "id_groupBuy") Long groupBuyId,
+            Model model) {
+        LOGGER.info("Archivage de l'achat groupé id {}", groupBuyId);
+        microServiceNeighborhoodProxy.archiveGroupBuying(groupBuyId);
         return "redirect:/group-buying";
     }
 

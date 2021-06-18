@@ -10,9 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class GroupBuyingServiceImpl implements GroupBuyingService {
@@ -23,18 +24,18 @@ public class GroupBuyingServiceImpl implements GroupBuyingService {
     GroupBuyingRepository groupBuyingRepository;
 
     @Override
-    public GroupBuying findGroupBuyingsById(Long groupBuyingId) {
+    public GroupBuying findGroupBuyingById(Long groupBuyingId) {
         LOGGER.info("findGroupBuyingsById : {}", groupBuyingId);
         return groupBuyingRepository.findGroupBuyingById(groupBuyingId);
     }
 
     @Override
-    public List<GroupBuying> getGroupBuyingsList() {
-        List<GroupBuying> result = groupBuyingRepository.findAll();
-        result.stream()
+    public List<GroupBuying> getGroupBuyingsList(List<String> groupBuyingStatusEnum) {
+        List<GroupBuying> result = groupBuyingRepository.findAllFiltredByStatusList(groupBuyingStatusEnum);
+/*        result.stream()
                 .filter(e -> GroupBuyingStatusEnum.IN_PROGRESS.toString().equalsIgnoreCase(e.getGroupBuyingStatus()))
-                .collect(Collectors.toList());
-        LOGGER.info("getGroupBuyingsList (Statut 'En Cours'): {}", result.size());
+                .collect(Collectors.toList());*/
+        LOGGER.info("getGroupBuyingsList (Statut {}): {}", groupBuyingStatusEnum, result.size());
         return result;
     }
 
@@ -51,6 +52,18 @@ public class GroupBuyingServiceImpl implements GroupBuyingService {
         );
         return groupBuyingRepository.save(groupBuying);
 
+    }
+
+    @Override
+    public GroupBuying archiveGroupBuying(Long groupBuyingId) {
+        GroupBuying groupBuying = groupBuyingRepository.findGroupBuyingById(groupBuyingId);
+        groupBuying.setGroupBuyingStatus(GroupBuyingStatusEnum.OFFLINE.toString());
+        LOGGER.info(
+                "archiveGroupBuying : id = {} - status = {}",
+                groupBuying.getId(),
+                groupBuying.getGroupBuyingStatus()
+        );
+        return groupBuyingRepository.save(groupBuying);
     }
 
     @Override
@@ -75,4 +88,13 @@ public class GroupBuyingServiceImpl implements GroupBuyingService {
 
         return groupBuying;
     }
+
+    @Override
+    public List<String> getCurrentGroupBuyingStatusEnumList() {
+        return Arrays.asList(
+                GroupBuyingStatusEnum.IN_PROGRESS.toString(),
+                GroupBuyingStatusEnum.CLOSED.toString()
+        );
+    }
+
 }

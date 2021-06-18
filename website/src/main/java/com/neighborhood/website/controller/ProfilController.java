@@ -1,5 +1,6 @@
 package com.neighborhood.website.controller;
 
+import com.neighborhood.website.beans.GroupBuyingBean;
 import com.neighborhood.website.beans.LoanBean;
 import com.neighborhood.website.beans.ServiceRequestBean;
 import com.neighborhood.website.beans.UserBean;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +42,15 @@ public class ProfilController {
 
         List<ServiceRequestBean> filtredServiceList = serviceRequestList.stream().filter(e -> e.getRequestStatus().equalsIgnoreCase("En cours")).collect(Collectors.toList());
         model.addAttribute("filtredServiceList", filtredServiceList);
+
+        List<GroupBuyingBean> groupBuyingList = microServiceNeighborhoodProxy.getCurrentGroupBuyingsList();
+
+        List<GroupBuyingBean> filtredGroupBuyingList = new ArrayList<>();
+        groupBuyingList.forEach(e -> {
+            if (e.getUserList().stream().anyMatch(user -> user.getId() == u.getId())) filtredGroupBuyingList.add(e);
+        });
+
+        model.addAttribute("filtredGroupBuyingList", filtredGroupBuyingList);
 
         LOGGER.info(
                 "Récupération d'une liste de {} emprunts pour l'utilisateur id {}",

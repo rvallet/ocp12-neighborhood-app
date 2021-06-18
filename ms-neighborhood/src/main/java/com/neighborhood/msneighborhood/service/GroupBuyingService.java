@@ -7,12 +7,16 @@ import java.util.List;
 
 public interface GroupBuyingService {
 
-    GroupBuying findGroupBuyingsById (Long groupBuyingId);
+    GroupBuying findGroupBuyingById (Long groupBuyingId);
 
-    List<GroupBuying> getGroupBuyingsList();
+    List<GroupBuying> getGroupBuyingsList(List<String> groupBuyingStatusEnum);
 
     GroupBuying closeGroupBuying(Long groupBuyingId);
 
+    GroupBuying archiveGroupBuying(Long groupBuyingId);
+
     GroupBuying updateGroupBuying (Long groupBuyingId, User user);
+
+    List<String> getCurrentGroupBuyingStatusEnumList();
 
 }

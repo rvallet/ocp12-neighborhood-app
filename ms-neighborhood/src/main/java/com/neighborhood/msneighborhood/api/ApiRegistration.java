@@ -31,5 +31,8 @@ public interface ApiRegistration {
     /* GroupBuyings */
     String REST_UPDATE_GROUP_BUYING = "/updateGroupBuying";
     String REST_GET_GROUP_BUYINGS_LIST = "/getGroupBuyingsList";
+    String REST_GET_CURRENT_GROUP_BUYINGS_LIST = "/getCurrentGroupBuyingsList";
     String REST_GET_CLOSE_GROUP_BUYING = "/closeGroupBuying";
+    String REST_GET_ARCHIVE_GROUP_BUYING = "/archiveGroupBuying";
+    String REST_GET_GROUP_BUYINGS_BY_ID = "/getGroupBuyingById";
 }

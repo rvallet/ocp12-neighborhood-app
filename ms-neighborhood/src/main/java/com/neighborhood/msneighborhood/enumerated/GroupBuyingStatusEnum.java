@@ -3,7 +3,8 @@ package com.neighborhood.msneighborhood.enumerated;
 public enum GroupBuyingStatusEnum {
 
     IN_PROGRESS ("En cours"),
-    CLOSED ("Terminé");
+    CLOSED ("Terminé"),
+    OFFLINE ("Archivé");
 
     private String groupBuyingStatus;
 
