@@ -25,7 +25,7 @@
 					<li class="nav-item"><a class="nav-link" th:href="@{/}"> Accueil </a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/my-neighbors}"> Mes Voisins </a></li>
 					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/services}"> Les Services </a></li>
-					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/services}"> Achats Groupés </a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/group-buying}"> Achats Groupés </a></li>
 					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/services}"> Vigilance </a></li>
 					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/user/profil}"> Mon Profil </a></li>
 					<li class="nav-item" sec:authorize="isAuthenticated() AND hasAuthority('MEMBER')"><a class="nav-link" th:href="@{/member/profil}"> Membre </a></li>

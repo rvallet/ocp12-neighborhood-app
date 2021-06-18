@@ -107,6 +107,10 @@ public class ServiceRequestServiceImpl implements ServiceRequestService {
                     GroupBuying groupBuying = new GroupBuying();
                     groupBuying.setTitle(serviceRequest.getDescription());
                     groupBuying.setUserList(Arrays.asList(helpedUser, helperUser));
+                    groupBuying.setNeighborGroupId(helpedUser.getNeighborGroup().getId());
+                    groupBuying.setImgPathThAttribute(serviceRequest.getImgPathThAttribute());
+                    groupBuying.setOwnerId(helpedUser.getId());
+                    groupBuying.setOwnerFullName(helpedUser.getFullName());
                     LOGGER.info("Création d'un achat groupé");
                     groupBuyingRepository.save(groupBuying);
                 case MISCELLANEOUS_SERVICE:

@@ -1,5 +1,6 @@
 package com.neighborhood.website.proxies;
 
+import com.neighborhood.website.beans.GroupBuyingBean;
 import com.neighborhood.website.beans.LoanBean;
 import com.neighborhood.website.beans.ServiceRequestBean;
 import com.neighborhood.website.beans.UserBean;
@@ -63,5 +64,15 @@ public interface MicroServiceNeighborhoodProxy {
 
     @GetMapping(value= "/closeLoan/{loanId}")
     LoanBean closeLoan(@PathVariable Long loanId);
+
+    /* GroupBuying */
+    @GetMapping(value= "/getGroupBuyingsList")
+    List<GroupBuyingBean> getGroupBuyingsList();
+
+    @GetMapping(value = "/updateGroupBuying/{groupBuyingId}/{userId}")
+    GroupBuyingBean updateGroupBuying(@PathVariable Long groupBuyingId, @PathVariable Long userId);
+
+    @GetMapping(value = "/closeGroupBuying/{groupBuyingId}")
+    GroupBuyingBean closeGroupBuying(@PathVariable Long groupBuyingId);
 
 }

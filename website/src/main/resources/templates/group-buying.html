@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{base}">
+
+<head th:insert="base :: head"></head>
+<head>
+  <title>Achats groupés - Neighborhood </title>
+  <meta name="description" content="Les Services : Achats groupés - Neighborhood"/>
+</head>
+<body>
+<th:block th:insert="base :: header">...</th:block>
+<main layout:fragment="main" role="main" th:remove="tag">
+  <section id="GroupBuying">
+    <div class="container">
+      <br />
+      <h2>Achats groupés</h2>
+      <br />
+
+      <div th:if="${groupBuyingList==null or groupBuyingList.isEmpty()}">
+        Aucun achat groupé
+      </div>
+      <!-- GroupBuying List (Cards) -->
+      <div th:if="${groupBuyingList!=null and !groupBuyingList.isEmpty()}">
+        <br />
+        <h3>Propositions en cours</h3>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 row-cols-xl-5">
+          <div class="col mb-4" id="bookList" th:each="groupBuy:${groupBuyingList}">
+            <div class="card h-100">
+              <img th:if="${groupBuy.imgPathThAttribute == null}" class="card-img-top img-fluid" th:src="@{/img/service/default_service_900x400.jpg}" th:alt="${groupBuy.title}" alt="">
+              <img th:if="${groupBuy.imgPathThAttribute != null}" class="card-img-top" th:src="@{${groupBuy.imgPathThAttribute}}" th:alt="${groupBuy.title}" alt="">
+              <div class="card-body">
+                <div class="card-header">
+                  <p class="card-title text-center" th:text="'Achat N°' + ${groupBuyingList.indexOf(groupBuy)+1}">Proposition</p>
+                </div>
+                <p class="card-text" th:text="${groupBuy.title}">Description</p>
+                <p class="text-muted"> Auteur : <span th:text="${groupBuy.ownerFullName }">Auteur</span></p>
+                <p class="card-text text-right"><small class="text-muted" th:text="'Publié le ' + ${#dates.format(groupBuy.creationDate, 'dd/MM/yyyy')}">Date de publication</small></p>
+              </div>
+              <div class="card-footer">
+                <p class="text-muted"> Nb Participipants : <span th:text="${groupBuy.userList.size()}">Participants</span></p>
+                <form th:action="@{/group-buying/add-user}" sec:authorize="isAuthenticated()" method="get">
+                  <input type="hidden" name="id_groupBuy" th:value="${groupBuy.id}"/>
+                  <input type="hidden" name="id_user" th:value="${user.id}"/>
+                  <button type="submit" th:if="${!isAlreadyParticipate.get(groupBuyingList.indexOf(groupBuy))}" class="btn btn-secondary btn-block">
+                    Participer
+                  </button>
+                  <button type="button" th:if="${isAlreadyParticipate.get(groupBuyingList.indexOf(groupBuy))}" th:disabled="true" class="btn btn-secondary btn-block">
+                    Déjà inscrit
+                  </button>
+                  <br />
+                </form>
+                <form th:action="@{/group-buying/close}" method="get">
+                  <input type="hidden" name="id_groupBuy" th:value="${groupBuy.id}"/>
+                  <button type="submit" th:if="${groupBuy.ownerId eq user.id}" class="btn btn-secondary btn-block">
+                    Clôturer
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+</main>
+<th:block th:insert="base :: footer">...</th:block>
+<th:block th:insert="base :: script">...</th:block>
+</body>
+</html>

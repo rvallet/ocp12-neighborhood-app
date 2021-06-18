@@ -1,31 +1,15 @@
-package com.neighborhood.msneighborhood.entities;
+package com.neighborhood.website.beans;
 
-import com.neighborhood.msneighborhood.enumerated.GroupBuyingStatusEnum;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-@Entity
-@Table(name="groupbuying")
-public class GroupBuying implements Serializable {
+public class GroupBuyingBean {
 
-    @Id
-    @Column(name="id_groupbuying")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private String title;
 
-    @ManyToMany
-    private Collection<User> userList;
+    private Collection<UserBean> userList;
 
     private String groupBuyingStatus;
 
@@ -40,12 +24,6 @@ public class GroupBuying implements Serializable {
     private String ownerFullName;
 
     private Long ownerId;
-
-    public GroupBuying() {
-        super();
-        this.creationDate = new Date();
-        this.groupBuyingStatus = GroupBuyingStatusEnum.IN_PROGRESS.toString();
-    }
 
     public Long getId() {
         return id;
@@ -63,11 +41,11 @@ public class GroupBuying implements Serializable {
         this.title = title;
     }
 
-    public Collection<User> getUserList() {
+    public Collection<UserBean> getUserList() {
         return userList;
     }
 
-    public void setUserList(Collection<User> userList) {
+    public void setUserList(Collection<UserBean> userList) {
         this.userList = userList;
     }
 
@@ -91,16 +69,16 @@ public class GroupBuying implements Serializable {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = purchaseDate;
-    }
-
     public String getImgPathThAttribute() {
         return imgPathThAttribute;
     }
 
     public void setImgPathThAttribute(String imgPathThAttribute) {
         this.imgPathThAttribute = imgPathThAttribute;
+    }
+
+    public void setPurchaseDate(Date purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     public Long getNeighborGroupId() {

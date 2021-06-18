@@ -1,5 +1,6 @@
 package com.neighborhood.website.controller;
 
+import com.neighborhood.website.beans.GroupBuyingBean;
 import com.neighborhood.website.beans.ServiceRequestBean;
 import com.neighborhood.website.beans.UserBean;
 import com.neighborhood.website.proxies.MicroServiceNeighborhoodProxy;
@@ -32,6 +33,7 @@ public class ServicesController {
     @Autowired
     MicroServiceNeighborhoodProxy microServiceNeighborhoodProxy;
 
+    /* Services */
     @GetMapping(path= {"/services"})
     public String lesServices (Model model) {
         LOGGER.info("Accès à la page des services");
@@ -96,13 +98,61 @@ public class ServicesController {
         return "redirect:/services";
     }
 
+    /* Loans */
+
     @GetMapping(path = {"/user/close-loan"})
     public String closeLoan (
             @RequestParam(name="id_loan") Long loanId)
             {
-        LOGGER.info("Envoie d'une demùande de fermeture de l'emprunt loanId {}", loanId);
+        LOGGER.info("Envoie d'une demande de fermeture de l'emprunt loanId {}", loanId);
         microServiceNeighborhoodProxy.closeLoan(loanId);
 
         return "redirect:/user/profil#nav-loan";
     }
+
+    /* GroupBuying */
+
+    @GetMapping(path= {"/group-buying"})
+    public String groupBuying (Model model) {
+        LOGGER.info("Accès à la page des achats groupés");
+        UserBean u = microServiceNeighborhoodProxy.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        List<GroupBuyingBean> groupBuyingList = new ArrayList<>();
+        Long neighborgroupId = u.getNeighborGroup().getId();
+        List<Boolean> isAlreadyParticipate = new ArrayList<>();
+
+        if (neighborgroupId !=null) {
+            groupBuyingList = microServiceNeighborhoodProxy.getGroupBuyingsList();
+            groupBuyingList.stream()
+                    .filter(e -> e.getNeighborGroupId() == neighborgroupId)
+                    .filter(e -> e.getGroupBuyingStatus().equalsIgnoreCase("En cours"))
+                    .collect(Collectors.toList());
+            groupBuyingList.forEach(e -> isAlreadyParticipate.add(e.getUserList().stream().anyMatch(user -> user.getId() == u.getId())));
+        }
+
+        model.addAttribute("groupBuyingList", groupBuyingList);
+        model.addAttribute("user", u);
+        model.addAttribute("isAlreadyParticipate", isAlreadyParticipate);
+        return "group-buying";
+    }
+
+    @GetMapping(path= {"/group-buying/add-user"})
+    public String groupBuyingAddUser (
+            @RequestParam(name = "id_groupBuy") Long groupBuyId,
+            @RequestParam(name = "id_user") Long userId,
+            Model model) {
+        LOGGER.info("Participation de l'utilsateur id {} à l'achat groué Id {}", userId, groupBuyId);
+        microServiceNeighborhoodProxy.updateGroupBuying(groupBuyId, userId);
+        return "redirect:/group-buying";
+    }
+
+    @GetMapping(path= {"/group-buying/close"})
+    public String closeGroupBuying (
+            @RequestParam(name = "id_groupBuy") Long groupBuyId,
+            Model model) {
+        LOGGER.info("Clôture de l'achat groupé id {}", groupBuyId);
+        microServiceNeighborhoodProxy.closeGroupBuying(groupBuyId);
+        return "redirect:/group-buying";
+    }
+
 }

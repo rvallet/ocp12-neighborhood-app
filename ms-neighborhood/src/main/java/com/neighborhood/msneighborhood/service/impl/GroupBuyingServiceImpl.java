@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GroupBuyingServiceImpl implements GroupBuyingService {
@@ -20,7 +21,6 @@ public class GroupBuyingServiceImpl implements GroupBuyingService {
 
     @Autowired
     GroupBuyingRepository groupBuyingRepository;
-
 
     @Override
     public GroupBuying findGroupBuyingsById(Long groupBuyingId) {
@@ -31,7 +31,10 @@ public class GroupBuyingServiceImpl implements GroupBuyingService {
     @Override
     public List<GroupBuying> getGroupBuyingsList() {
         List<GroupBuying> result = groupBuyingRepository.findAll();
-        LOGGER.info("getGroupBuyingsList : {}", result.size());
+        result.stream()
+                .filter(e -> GroupBuyingStatusEnum.IN_PROGRESS.toString().equalsIgnoreCase(e.getGroupBuyingStatus()))
+                .collect(Collectors.toList());
+        LOGGER.info("getGroupBuyingsList (Statut 'En Cours'): {}", result.size());
         return result;
     }
 
@@ -54,14 +57,22 @@ public class GroupBuyingServiceImpl implements GroupBuyingService {
     public GroupBuying updateGroupBuying(Long groupBuyingId, User user) {
         GroupBuying groupBuying = groupBuyingRepository.findGroupBuyingById(groupBuyingId);
 
-        groupBuying.getUserList().add(user);
+        if (groupBuying != null && !groupBuying.getUserList().stream().anyMatch(u -> u.getId() == user.getId())) {
+            groupBuying.getUserList().add(user);
+            groupBuyingRepository.save(groupBuying);
+            LOGGER.info(
+                    "updateGroupBuying  : id = {} - status = {} - participants = {}",
+                    groupBuying.getId(),
+                    groupBuying.getGroupBuyingStatus(),
+                    groupBuying.getUserList().size()
+            );
+        } else {
+            LOGGER.warn(
+                    "L'utilisateur participe déjà à cet achat groupé (userId {} - groupBuyingId {}",
+                    user.getId(),
+                    groupBuyingId);
+        }
 
-        LOGGER.info(
-                "updateGroupBuying  : id = {} - status = {} - participants = {}",
-                groupBuying.getId(),
-                groupBuying.getGroupBuyingStatus(),
-                groupBuying.getUserList().size()
-        );
-        return groupBuyingRepository.save(groupBuying);
+        return groupBuying;
     }
 }
