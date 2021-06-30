@@ -2,6 +2,7 @@ package com.neighborhood.website.proxies;
 
 import com.neighborhood.website.beans.GroupBuyingBean;
 import com.neighborhood.website.beans.LoanBean;
+import com.neighborhood.website.beans.NeighborGroupBean;
 import com.neighborhood.website.beans.ServiceRequestBean;
 import com.neighborhood.website.beans.UserBean;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
@@ -44,6 +45,9 @@ public interface MicroServiceNeighborhoodProxy {
     /* Neighbors */
     @GetMapping(value= "/neighbors/{groupId}")
     List<UserBean> getNeighborsByGroupId(@PathVariable Long groupId);
+
+    @GetMapping(value="/neighbors/getNeighborGroupList")
+    List<NeighborGroupBean> getNeighborGroupList();
 
     /* Services */
     @PostMapping(value = "/createServiceRequest/{userId}")

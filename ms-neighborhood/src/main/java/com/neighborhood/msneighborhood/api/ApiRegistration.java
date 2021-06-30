@@ -14,6 +14,7 @@ public interface ApiRegistration {
     String REST_GET_USER_BY_ID = "/getUserById";
     String REST_SAVE_USER = "/saveUser";
     String REST_GET_ROLE_LIST ="/getRoleList";
+    String REST_GET_NEIGHBOR_GROUP_LIST ="/neighbors/getNeighborGroupList";
 
     /* Loans */
     String REST_GET_LOANS_LIST_BY_USER_ID = "/findLoansListByUserId";

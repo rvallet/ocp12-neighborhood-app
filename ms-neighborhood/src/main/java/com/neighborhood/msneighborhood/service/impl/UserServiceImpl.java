@@ -1,7 +1,9 @@
 package com.neighborhood.msneighborhood.service.impl;
 
+import com.neighborhood.msneighborhood.entities.NeighborGroup;
 import com.neighborhood.msneighborhood.entities.User;
 import com.neighborhood.msneighborhood.enumerated.UserRoleEnum;
+import com.neighborhood.msneighborhood.repository.NeighborGroupRepository;
 import com.neighborhood.msneighborhood.repository.UserRepository;
 import com.neighborhood.msneighborhood.service.UserService;
 import org.slf4j.Logger;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    NeighborGroupRepository neighborGroupRepository;
 
     @Override
     public List<User> findAll() {
@@ -70,5 +75,13 @@ public class UserServiceImpl implements UserService {
         LOGGER.info("Envoi d'une liste de {} rôles utilisateurs", result.size());
         return result;
     }
+
+    @Override
+    public List<NeighborGroup> getNeighborGroupList() {
+        List<NeighborGroup> result = new ArrayList<>();
+        neighborGroupRepository.findAll().forEach(e -> result.add(e));
+        return result;
+    }
+
 
 }

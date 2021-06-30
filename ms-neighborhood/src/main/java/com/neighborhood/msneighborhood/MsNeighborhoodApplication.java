@@ -96,6 +96,20 @@ public class MsNeighborhoodApplication implements CommandLineRunner {
                             "user"
                     ),
                     new User(
+                            "email@member1.fr",
+                            "member1_lastName",
+                            "member1_firstName",
+                            webSecurityConfig.passwordEncoder().encode("passwordMember1"),
+                            "member"
+                    ),
+                    new User(
+                            "email@member2.fr",
+                            "member2_lastName",
+                            "member2_firstName",
+                            webSecurityConfig.passwordEncoder().encode("passwordMember2"),
+                            "member"
+                    ),
+                    new User(
                             "email@admin1.fr",
                             "admin1_lastName",
                             "admin1_firstName",
@@ -131,6 +145,8 @@ public class MsNeighborhoodApplication implements CommandLineRunner {
         NeighborGroup neighborGroup = new NeighborGroup("GroupTest", users);
         neighborGroupService.save(neighborGroup);
         users.forEach(u -> u.setNeighborGroup(neighborGroup));
+        NeighborGroup neighborGroupEmpty = new NeighborGroup("GroupTestEmpty");
+        neighborGroupService.save(neighborGroupEmpty);
     }
 
     private void initUserAdresse(List<User> users) {
