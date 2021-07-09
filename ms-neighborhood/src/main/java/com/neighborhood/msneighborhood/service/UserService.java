@@ -4,7 +4,6 @@ import com.neighborhood.msneighborhood.entities.NeighborGroup;
 import com.neighborhood.msneighborhood.entities.User;
 import org.springframework.data.domain.Page;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface UserService {
