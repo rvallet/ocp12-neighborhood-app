@@ -28,7 +28,7 @@ import java.util.List;
 @EnableConfigurationProperties
 @EnableDiscoveryClient
 @EnableFeignClients("com.neighborhood.msneighborhood")
-@Profile("!test")
+//@Profile("!test")
 public class MsNeighborhoodApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

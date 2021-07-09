@@ -50,13 +50,13 @@ public class User implements Serializable {
     private NeighborGroup neighborGroup;
 
     @OneToMany(mappedBy = "user")
-    //@LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonManagedReference
     private Collection<Loan> loanList;
 
     @OneToMany(mappedBy = "user")
-    //@LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonManagedReference
     private Collection<ServiceRequest> serviceRequestList;
