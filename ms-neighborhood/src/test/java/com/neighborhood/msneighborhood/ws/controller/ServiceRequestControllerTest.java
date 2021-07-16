@@ -108,7 +108,6 @@ public class ServiceRequestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.*", hasSize(size)));
         // @formatter:on
 
-
     }
 
     @Test

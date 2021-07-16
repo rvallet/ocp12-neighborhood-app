@@ -23,4 +23,5 @@ INSERT INTO `loan` (`id_loan`, `end_loan`, `loan_status`, `owner_full_name`, `ow
 (1, '2021-06-30 10:43:38', 'En cours', 'user1_firstName user1_lastName', 1, NULL, '2021-06-30 10:43:38', 'J''aurais besoin d''un tournevis vis TorX 8 svp, retour rapide assuré :)', 5, 5);
 
 INSERT INTO `groupbuying` (`id_groupbuying`, `creation_date`, `group_buying_status`, `img_path_th_attribute`, `neighbor_group_id`, `owner_full_name`, `owner_id`, `purchase_date`, `title`) VALUES
-(1, '2021-06-30 10:45:03', 'Terminé', '/img/upload/service_1625047618006_pb30.jpg', 1, 'member1_firstName member1_lastName', 5, '2021-06-30 10:45:55', 'J''ai trouvé des caméras pour un budget de 100€ pour la surveillance de nos jardins. ');
+(1, '2021-06-30 10:45:03', 'Terminé', '/img/upload/service_1625047618006_pb30.jpg', 1, 'member1_firstName member1_lastName', 5, '2021-06-30 10:45:55', 'J''ai trouvé des caméras pour un budget de 100€ pour la surveillance de nos jardins. '),
+(2, '2021-07-16 14:16:28', 'En cours', NULL, 1, 'user4_firstName user4_lastName', 4, NULL, 'Description de l''achat groupé');

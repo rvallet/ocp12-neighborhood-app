@@ -49,7 +49,7 @@ public class LoanServiceImplTest {
 
         Assertions.assertEquals(
                 loanList.size(),
-                loanService.findLoansByUserId(1L).size(),
+                loanService.getLoansList().size(),
                 "Liste de tous les emprunts"
         );
 
