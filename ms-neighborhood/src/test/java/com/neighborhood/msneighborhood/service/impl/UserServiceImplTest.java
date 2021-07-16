@@ -2,6 +2,7 @@ package com.neighborhood.msneighborhood.service.impl;
 
 import com.neighborhood.msneighborhood.entities.NeighborGroup;
 import com.neighborhood.msneighborhood.entities.User;
+import com.neighborhood.msneighborhood.enumerated.UserRoleEnum;
 import com.neighborhood.msneighborhood.repository.NeighborGroupRepository;
 import com.neighborhood.msneighborhood.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -109,6 +110,15 @@ public class UserServiceImplTest {
                 userList.size(),
                 userService.saveAll(userList).size(),
                 "Enregistrement d'une liste d'utilisateurs'"
+        );
+    }
+
+    @Test
+    void getRoleList(){
+        Assertions.assertEquals(
+                UserRoleEnum.values().length,
+                userService.getRoleList().size(),
+                "Liste des rôles utilisateurs"
         );
     }
 

@@ -182,12 +182,6 @@ public class UserControllerTest {
                 "new user email"
         );
 
-        Assertions.assertEquals(
-                9L,
-                resultUser.getId(),
-                "new user id"
-        );
-
     }
 
 
