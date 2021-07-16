@@ -2,6 +2,7 @@ package com.neighborhood.msneighborhood.ws.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neighborhood.msneighborhood.api.ApiRegistration;
+import com.neighborhood.msneighborhood.enumerated.LoanStatusEnum;
 import com.neighborhood.msneighborhood.service.LoanService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,23 +39,46 @@ public class LoanControllerTest {
     @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:sql/init_db.sql")
     @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:sql/clean_db.sql")
     void findLoansListByUserId() throws Exception {
-        long userId = 5L;
+        final long userId = 5L;
         // @formatter:off
         mockMvc.perform(MockMvcRequestBuilders
                 .get(ApiRegistration.REST_GET_LOANS_LIST_BY_USER_ID + "/" + userId)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.*").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].userId").value(userId));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].userId").value(userId));;
         // @formatter:on
     }
 
-    void getLoansList() {
-
+    @Test
+    @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:sql/clean_db.sql")
+    @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:sql/init_db.sql")
+    @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:sql/clean_db.sql")
+    void getLoansList() throws Exception {
+        // @formatter:off
+        mockMvc.perform(MockMvcRequestBuilders
+                .get(ApiRegistration.REST_GET_LOANS_LIST)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.*").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.*",hasSize(1)));
+        // @formatter:on
     }
 
-    void closeLoan() {
-
+    @Test
+    @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:sql/clean_db.sql")
+    @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:sql/init_db.sql")
+    @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:sql/clean_db.sql")
+    void closeLoan() throws Exception {
+        final long laonId = 1L;
+        // @formatter:off
+        mockMvc.perform(MockMvcRequestBuilders
+                .get(ApiRegistration.REST_GET_CLOSE_LOAN + "/" + laonId)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.*").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.loanStatus").value(LoanStatusEnum.CLOSED.toString()));
+        // @formatter:on
     }
 
 }
