@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static com.neighborhood.msneighborhood.mock.NeighborGroupServiceMock.getNeighborGroupMock;
-import static com.neighborhood.msneighborhood.mock.UserMock.getMockUser;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
