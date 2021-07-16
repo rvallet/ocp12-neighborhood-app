@@ -65,6 +65,4 @@ public class ServiceRequestController {
         return requestService.processServiceResponse(serviceId, userId);
     }
 
-
-
 }
