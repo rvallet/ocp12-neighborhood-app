@@ -40,6 +40,7 @@ public class ServiceRequestController {
             serviceRequestToCreate.setUser(user);
             serviceRequestToCreate.setRequestType(serviceRequest.getRequestType());
             serviceRequestToCreate.setDescription(serviceRequest.getDescription());
+            serviceRequestToCreate.setImgPathThAttribute(serviceRequest.getImgPathThAttribute());
             serviceRequestToCreate.setAuthor(user.getFullName());
             serviceRequestToCreate.setOwnerId(user.getId());
         } else {
@@ -63,7 +64,5 @@ public class ServiceRequestController {
         LOGGER.debug("reception d'une demande de mise à jour de service (serviceId {}, userId {}", serviceId, userId);
         return requestService.processServiceResponse(serviceId, userId);
     }
-
-
 
 }

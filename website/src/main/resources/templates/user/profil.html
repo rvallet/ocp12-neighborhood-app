@@ -43,6 +43,11 @@
                        role="tab" aria-controls="nav-service"
                        aria-selected="false">Mes Demandes en cours
                     </a>
+                    <a class="nav-item nav-link" id="nav-groupbuying-tab"
+                       data-toggle="tab" href="#nav-groupbuying"
+                       role="tab" aria-controls="nav-groupbuying"
+                       aria-selected="false">Mes Achats groupés
+                    </a>
                     <a class="nav-item nav-link" id="nav-history-tab"
                        data-toggle="tab" href="#nav-history"
                        role="tab" aria-controls="nav-history"
@@ -155,6 +160,48 @@
                                         <form th:action="@{/user/close-loan}" method="get">
                                             <input type="hidden" name="id_loan" th:value="${loan.id}">
                                             <button class="text-center" type="submit">Rendre</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 					Mes Achats groupés       -->
+                <div class="tab-pane fade" id="nav-groupbuying" role="tabpanel" aria-labelledby="nav-groupbuying-tab">
+                    <div class="col-md-12" th:if="${filtredGroupBuyingList==null or filtredGroupBuyingList.isEmpty()}">
+                        <br />
+                        <h3>Mes Achats groupés</h3>
+                        <p>Vous n'avez aucun achat groupé</p>
+                    </div>
+                    <div class="col-md-12" th:if="${filtredGroupBuyingList!=null and !filtredGroupBuyingList.isEmpty()}">
+                        <br />
+                        <h3>Mes Achats groupés</h3>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Objet</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Nb Participants</th>
+                                    <th scope="col">Date d'achat</th>
+                                    <th scope="col">Supprimer</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="groupBuy:${filtredGroupBuyingList}" th:if="${groupBuy.groupBuyingStatus != 'Archive'}">
+                                    <th scope="row"><span th:text="${groupBuy.id}">#</span></th>
+                                    <td><span th:text="${groupBuy.title}">Objet</span></td>
+                                    <td><span th:text="${groupBuy.groupBuyingStatus}">Statut</span></td>
+                                    <td><span th:text="${groupBuy.userList.size()}?:' - '">Nb Participants</span><a th:href="@{/group-buying-user-list(id=${groupBuy.id})}">  (Voir la liste) </a></td>
+                                    <td><span th:text="${#dates.format(groupBuy.purchaseDate, 'dd/MM/yyyy')}">Date de l'achat</span></td>
+                                    <td>
+                                        <form th:action="@{/group-buying/archive}" method="get">
+                                            <input type="hidden" name="id_groupBuy" th:value="${groupBuy.id}">
+                                            <button class="text-center" type="submit" th:disabled="${groupBuy.groupBuyingStatus != 'Terminé'}">Supprimer</button>
                                         </form>
                                     </td>
                                 </tr>
