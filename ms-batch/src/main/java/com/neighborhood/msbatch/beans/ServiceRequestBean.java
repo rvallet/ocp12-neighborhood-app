@@ -10,6 +10,8 @@ public class ServiceRequestBean {
 
     private String description;
 
+    private String imgPathThAttribute;
+
     private String requestStatus;
 
     private Long ownerId;
@@ -46,6 +48,14 @@ public class ServiceRequestBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImgPathThAttribute() {
+        return imgPathThAttribute;
+    }
+
+    public void setImgPathThAttribute(String imgPathThAttribute) {
+        this.imgPathThAttribute = imgPathThAttribute;
     }
 
     public String getRequestStatus() {

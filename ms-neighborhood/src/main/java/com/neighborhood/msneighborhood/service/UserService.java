@@ -1,9 +1,9 @@
 package com.neighborhood.msneighborhood.service;
 
+import com.neighborhood.msneighborhood.entities.NeighborGroup;
 import com.neighborhood.msneighborhood.entities.User;
 import org.springframework.data.domain.Page;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface UserService {
@@ -16,5 +16,6 @@ public interface UserService {
     List<User> saveAll(List<User> userList);
     Page<User> findPaginatedUsers(int pageNumber, int pageSize);
     List<String> getRoleList ();
+    List<NeighborGroup> getNeighborGroupList ();
 
 }
