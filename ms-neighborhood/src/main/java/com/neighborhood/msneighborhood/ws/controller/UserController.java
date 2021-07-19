@@ -2,6 +2,7 @@ package com.neighborhood.msneighborhood.ws.controller;
 
 import com.neighborhood.msneighborhood.config.ApplicationPropertiesConfig;
 import com.neighborhood.msneighborhood.api.ApiRegistration;
+import com.neighborhood.msneighborhood.entities.NeighborGroup;
 import com.neighborhood.msneighborhood.entities.User;
 import com.neighborhood.msneighborhood.service.UserService;
 import com.neighborhood.msneighborhood.ws.exception.NoSuchResultException;
@@ -69,6 +70,11 @@ public class UserController {
     @GetMapping(value= ApiRegistration.REST_GET_ROLE_LIST)
     public List<String> getRoleList(){
         return userService.getRoleList();
+    }
+
+    @GetMapping(value= ApiRegistration.REST_GET_NEIGHBOR_GROUP_LIST)
+    public List<NeighborGroup> getNeighborGroupList(){
+        return userService.getNeighborGroupList();
     }
 
 }

@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Profile;
 import org.springframework.util.CollectionUtils;
 
 import java.security.NoSuchAlgorithmException;
@@ -27,6 +28,7 @@ import java.util.List;
 @EnableConfigurationProperties
 @EnableDiscoveryClient
 @EnableFeignClients("com.neighborhood.msneighborhood")
+//@Profile("!test")
 public class MsNeighborhoodApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
@@ -96,6 +98,20 @@ public class MsNeighborhoodApplication implements CommandLineRunner {
                             "user"
                     ),
                     new User(
+                            "email@member1.fr",
+                            "member1_lastName",
+                            "member1_firstName",
+                            webSecurityConfig.passwordEncoder().encode("passwordMember1"),
+                            "member"
+                    ),
+                    new User(
+                            "email@member2.fr",
+                            "member2_lastName",
+                            "member2_firstName",
+                            webSecurityConfig.passwordEncoder().encode("passwordMember2"),
+                            "member"
+                    ),
+                    new User(
                             "email@admin1.fr",
                             "admin1_lastName",
                             "admin1_firstName",
@@ -131,6 +147,8 @@ public class MsNeighborhoodApplication implements CommandLineRunner {
         NeighborGroup neighborGroup = new NeighborGroup("GroupTest", users);
         neighborGroupService.save(neighborGroup);
         users.forEach(u -> u.setNeighborGroup(neighborGroup));
+        NeighborGroup neighborGroupEmpty = new NeighborGroup("GroupTestEmpty");
+        neighborGroupService.save(neighborGroupEmpty);
     }
 
     private void initUserAdresse(List<User> users) {

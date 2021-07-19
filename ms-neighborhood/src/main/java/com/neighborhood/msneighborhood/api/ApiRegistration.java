@@ -14,6 +14,7 @@ public interface ApiRegistration {
     String REST_GET_USER_BY_ID = "/getUserById";
     String REST_SAVE_USER = "/saveUser";
     String REST_GET_ROLE_LIST ="/getRoleList";
+    String REST_GET_NEIGHBOR_GROUP_LIST ="/neighbors/getNeighborGroupList";
 
     /* Loans */
     String REST_GET_LOANS_LIST_BY_USER_ID = "/findLoansListByUserId";
@@ -27,4 +28,12 @@ public interface ApiRegistration {
     String REST_GET_SERVICE_REQUEST_TYPE = "/getServiceRequestTypeList";
     String REST_GET_SERVICE_REQUEST_LIST_BY_GROUP_ID = "/getServiceRequestListByNeighborgroupId";
     String REST_GET_PROCESS_SERVICE_RESPONSE = "/processServiceResponse";
+
+    /* GroupBuyings */
+    String REST_UPDATE_GROUP_BUYING = "/updateGroupBuying";
+    String REST_GET_GROUP_BUYINGS_LIST = "/getGroupBuyingsList";
+    String REST_GET_CURRENT_GROUP_BUYINGS_LIST = "/getCurrentGroupBuyingsList";
+    String REST_GET_CLOSE_GROUP_BUYING = "/closeGroupBuying";
+    String REST_GET_ARCHIVE_GROUP_BUYING = "/archiveGroupBuying";
+    String REST_GET_GROUP_BUYINGS_BY_ID = "/getGroupBuyingById";
 }
