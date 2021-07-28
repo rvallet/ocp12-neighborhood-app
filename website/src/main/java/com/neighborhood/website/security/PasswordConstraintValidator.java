@@ -32,7 +32,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
     public boolean isValid(String password, ConstraintValidatorContext context) {
 
         Properties props = new Properties();
-        URL resource = this.getClass().getResource("/passay_fr.properties");
+        URL resource = this.getClass().getClassLoader().getResource("passay_fr.properties");
 
         if (resource == null) {
             LOGGER.warn("Failed to load resource passay_fr.properties from {}", this.getClass().getCanonicalName());
